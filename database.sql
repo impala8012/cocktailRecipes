@@ -18,7 +18,7 @@ CREATE TABLE recipes(
 );
 
 CREATE TABLE recipe_images(
-  recipe_photo_id SERIAL PRIMARY KEY,
+  recipe_image_id SERIAL PRIMARY KEY,
   image1_url  VARCHAR(255),
   image2_url  VARCHAR(255),
   created_at timestamp without time zone default current_timestamp,

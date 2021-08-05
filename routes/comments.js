@@ -1,64 +1,55 @@
 const router = require('express').Router()
 const pool = require('../db')
 
-// GET comments
-router.get("/", async(req, res, next) => {
-  try {
-    const comments = await pool.query("SELECT * FROM comments")
-    res.status(200).json(comments.row)
-  } catch (err){
-    console.log(err.message)
-    res.status(500).send("Server Error");
-  }
-})
-
 // CREATE comment
-router.post("/", async(req, res, next) =>{
+router.post("/recipes/:id/comments", async (req, res, next) => {
   try {
-    const { content, rating } = req.body;
-    if(!content|| !rating) {
+    const { id } = req.params;
+    console.log("id", id);
+    const { description, rating } = req.body;
+    if (!description || !rating) {
       return res.json("有欄位忘記填囉");
     }
     const newComment = await pool.query(
-      "INSERT INTO comments (content, rating) VALUES ($1, $2) RETURNING *",
-      [content, rating]
+      "INSERT INTO comments (description, rating, recipe_id) VALUES ($1, $2, $3) RETURNING *",
+      [description, rating, id]
     );
     res.status(201).json(newComment.rows[0]);
   } catch (err) {
-    console.log(err.message)
+    console.log(err.message);
     res.status(500).send("Server Error");
   }
-})
+});
 
 // Update comments
-router.put('/:id', async(req, res, next)=>{
-  try{
-    const {id} = req.params
-    const {content, rating} = req.body
+router.put("/recipes/:id/comments/:comment_id", async (req, res, next) => {
+  try {
+    const { comment_id } = req.params;
+    const { description, rating } = req.body;
     const updatedComment = await pool.query(
-      "UPDATE comments SET content = $1, rating = $2 WHERE comment_id = $3",
-      [content, rating, id]
+      "UPDATE comments SET description = $1, rating = $2 WHERE comment_id = $3",
+      [description, rating, comment_id]
     );
-    res.status(204).send("comment was updated");
-  } catch(err) {
-    console.log(err.message)
+    res.status(204).json("update successfully");
+  } catch (err) {
+    console.log(err.message);
     res.status(500).send("Server Error");
   }
-})
+});
 
 // DELETE comments
-router.delete('/:id', async(req, res, next) => {
+router.delete("/recipes/:id/comments/:comment_id", async (req, res, next) => {
   try {
-    const {id} = req.params
+    const { comment_id } = req.params;
     const deletedCategory = await pool.query(
       "DELETE FROM comments WHERE comment_id = $1",
-      [id]
+      [comment_id]
     );
     res.status(204).send("comment was deleted");
   } catch (err) {
-    console.log(err.message)
+    console.log(err.message);
     res.status(500).send("Server Error");
   }
-})
+});
 
 module.exports = router
