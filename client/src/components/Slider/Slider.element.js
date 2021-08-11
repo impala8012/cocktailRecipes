@@ -32,7 +32,7 @@ export const LeftArrow = styled(FaArrowAltCircleLeft)`
   cursor: pointer;
   user-select: none;
   @media screen and (max-width: 768px) {
-    right: 10px;
+    left: 10px;
     font-size: 2.5rem;
   }
 `;
@@ -87,6 +87,10 @@ export const DotsContainer = styled.div`
   justify-content: center;
   top: 80%;
   z-index: 200;
+  @media screen and (max-width: 768px) {
+    top: 70%;
+    width:15%;
+  }
 `;
 
 export const Dot = styled.span`
@@ -107,8 +111,4 @@ export const Dot = styled.span`
     `
   background-color: rgba(255,255,255,0.5);
  `}
-
-  .active-dot, .dot:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-  }
 `;

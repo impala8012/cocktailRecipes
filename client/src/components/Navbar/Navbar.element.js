@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Container } from "../../globalStyle";
-import {Link} from "react-router-dom"
-import {FaCocktail} from "react-icons/fa"
+import {Link} from "react-router-dom";
+import {FaCocktail} from "react-icons/fa";
 
 
 export const Nav = styled.nav`

@@ -24,6 +24,25 @@ export const Container = styled.div`
   }
 `;
 
+export const CustomButton = styled.button`
+  min-width: 150px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 20px 0 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bolder;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+  &:first-child {
+    margin-bottom: 10px;
+  }
+`;
+
 
 
 export default GlobalStyle;

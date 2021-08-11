@@ -7,8 +7,10 @@ const upload = multer({ storage });
 // GET all recipes
 router.get("/", async (req, res, next) => {
   try {
+    const {per_page, page} = req.query
+    const offset = per_page * (page - 1)
     const recipes = await pool.query(
-      "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id, image1_url, image2_url from recipe_images) recipe_images ON recipes.recipe_id = recipe_images.recipe_id LEFT OUTER JOIN (SELECT recipe_id as id, description, rating FROM comments) comments ON recipes.recipe_id = comments.id");
+      "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id, image1_url, image2_url from recipe_images) recipe_images ON recipes.recipe_id = recipe_images.recipe_id LEFT OUTER JOIN (SELECT recipe_id as id, description, rating FROM comments) comments ON recipes.recipe_id = comments.id LIMIT = $1, OFFSET = $2",[per_page, offset]);
     console.log(recipes);
     res.status(200).json(recipes.rows);
   } catch (err) {

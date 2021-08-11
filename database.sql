@@ -74,3 +74,15 @@ from restaurants
         from reviews
         group by restaurant_id
     ) reviews on restaurants.id = reviews.restaurant_id;
+
+
+-- update
+-- WITH recipes AS (
+--         UPDATE recipes 
+--         SET title = 'test', ingredient = 'tets', content = 'test',category_id = 1
+--         WHERE recipe_id = 7
+-- )
+-- UPDATE recipe_images 
+-- SET image1_url = '1.jpg', image2_url = '2.jpg'
+-- WHERE recipe_id = 7
+-- RETURNING *;

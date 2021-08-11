@@ -1,7 +1,16 @@
 import React from "react"
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import GlobalStyle from "./globalStyle"
-import { Navbar, Slider } from "./components";
+import {
+  Navbar,
+  Slider,
+  Footer,
+  HomeRecipeList,
+  RecipeList,
+  Recipe,
+  CategoryList,
+  SignIn
+} from "./components";
 import { sliderData } from "./components/Slider/Data";
 
 function App() {
@@ -9,10 +18,16 @@ function App() {
     <Router>
       <GlobalStyle />
       <Navbar />
-      <Slider />
+      {/* <Slider />
+      <HomeRecipeList /> */}
+      {/* <RecipeList /> */}
+      {/* <Recipe /> */}
+      {/* <CategoryList /> */}
+      <SignIn />
       <Switch>
         <Route />
       </Switch>
+      <Footer />
     </Router>
   );
 }
