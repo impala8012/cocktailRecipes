@@ -20,4 +20,5 @@ export const SignUpMessage = styled.div`
 export const SignUpInfo = styled(Link)`
   cursor: pointer;
   text-decoration: none;
+  margin-left: 10px;
 `;

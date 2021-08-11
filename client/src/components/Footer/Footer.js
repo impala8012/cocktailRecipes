@@ -21,7 +21,9 @@ const Footer = () => {
               <SocialIcon />
               理性飲酒
             </SocialLogo>
-            <WebsiteRights>© Copyright 2021, Dylan</WebsiteRights>
+            <WebsiteRights>
+              Copyright © Dylan 2021 All Rights Reserved.
+            </WebsiteRights>
             <SocialIcons>
               <SocialIconLinks href="/" aria-label="Facebook">
                 <FaFacebook />

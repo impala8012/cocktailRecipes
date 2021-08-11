@@ -9,7 +9,8 @@ import {
   RecipeList,
   Recipe,
   CategoryList,
-  SignIn
+  SignUp,
+  AddRecipe,
 } from "./components";
 import { sliderData } from "./components/Slider/Data";
 
@@ -23,7 +24,8 @@ function App() {
       {/* <RecipeList /> */}
       {/* <Recipe /> */}
       {/* <CategoryList /> */}
-      <SignIn />
+      {/* <SignUp /> */}
+      <AddRecipe />
       <Switch>
         <Route />
       </Switch>

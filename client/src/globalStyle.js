@@ -37,6 +37,7 @@ export const CustomButton = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
 
   &:first-child {
     margin-bottom: 10px;
