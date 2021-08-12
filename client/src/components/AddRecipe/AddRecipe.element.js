@@ -1,5 +1,5 @@
-import styled, {css} from "styled-components";
-import {Container} from "../../globalStyle"
+import styled, { css } from "styled-components";
+import { Container, CustomButton } from "../../globalStyle";
 
 export const shrinkLabelStyles = css`
   top: -14px;
@@ -8,12 +8,12 @@ export const shrinkLabelStyles = css`
 `;
 
 export const AddRecipeContainer = styled(Container)`
-    max-width: 860px;
-    padding: 25px;
-    margin: 50px auto;
-    background: #e8e8e8;
-    height: 120vh;
-`
+  max-width: 860px;
+  padding: 25px;
+  margin: 50px auto;
+  background: #e8e8e8;
+  /* height: 130vh; */
+`;
 
 export const AddRecipeSection = styled.section`
   text-align: center;
@@ -24,8 +24,7 @@ export const AddRecipeTitle = styled.h2`
   margin-bottom: 2rem;
 `;
 
-export const AddRecipeForm = styled.form`
-`
+export const AddRecipeForm = styled.form``;
 
 export const AddRecipeDivider = styled.div`
   margin-bottom: 1.5rem;
@@ -33,9 +32,9 @@ export const AddRecipeDivider = styled.div`
 export const AddRecipeLabel = styled.label`
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  color: #909090;
 `;
-export const AddRecipeInputContent = styled.input`
+export const AddRecipeInput = styled.input`
   background: none;
   background-color: white;
   color: grey;
@@ -46,7 +45,7 @@ export const AddRecipeInputContent = styled.input`
   border: none;
   border-radius: 0;
   border-bottom: 1px solid grey;
-  margin: 25px 0;
+  margin: 10px 0;
 
   &:focus {
     outline: none;
@@ -56,11 +55,43 @@ export const AddRecipeInputContent = styled.input`
     ${shrinkLabelStyles};
   }
 `;
-export const AddRecipeTextareaContent = styled.textarea`
+
+export const ImgLabelContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  position: absolute;
+  top: 110%;
+`;
+
+export const AddRecipeimgInput = styled(AddRecipeInput)`
+  display: none;
+`;
+export const ImgLabel = styled.label`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 30px;
+  padding: 5px 10px 5px 10px;
+  background-color: #fff;
+  border-radius: 10px;
+`;
+export const AddRecipeImgPreview = styled.div`
+  width: 300px;
+  height: 200px;
+  position: relative;
+`;
+
+export const ImgPreview = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+export const AddRecipeTextarea = styled.textarea`
   display: block;
   width: 100%;
   padding: 20px 15px;
-  font-size: 15px;
+  margin-top: 10px;
+  font-size: 1rem;
   color: #666;
   line-height: 1.8rem;
   border: 1px solid #ddd;
@@ -79,11 +110,7 @@ export const AddRecipeTextareaContent = styled.textarea`
 export const AddRecipeSelectDivider = styled.div`
   display: flex;
   align-items: center;
-
-  &:hover::before {
-    color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+  margin-bottom: 15px;
 `;
 export const AddRecipeSelect = styled.select`
   background: #f9f9f9;
@@ -97,4 +124,16 @@ export const AddRecipeSelect = styled.select`
 `;
 export const AddRecipeSelectOption = styled.option`
   padding: 30px;
+`;
+
+export const AddRecipeButton = styled(CustomButton)`
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #4b3e3e;
+  background-color: #8c969c;
+
+  :hover {
+    background-color: #9c8c8c;
+  }
 `;

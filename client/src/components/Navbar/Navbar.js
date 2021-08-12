@@ -38,7 +38,7 @@ const Navbar = () => {
               <NavLinks href="/categories">分類列表</NavLinks>
             </NavItem>
             <NavItem>
-              <NavLinks href="/recipe-add">發表文章</NavLinks>
+              <NavLinks href="/add-recipe">發表文章</NavLinks>
             </NavItem>
             <NavItem>
               <NavLinks href="/login">登入</NavLinks>

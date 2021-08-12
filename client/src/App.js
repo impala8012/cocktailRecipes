@@ -3,31 +3,35 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import GlobalStyle from "./globalStyle"
 import {
   Navbar,
-  Slider,
   Footer,
-  HomeRecipeList,
-  RecipeList,
-  Recipe,
-  CategoryList,
-  SignUp,
-  AddRecipe,
 } from "./components";
-import { sliderData } from "./components/Slider/Data";
+import { HomePage, CategoryListPage, AddRecipePage, RecipeListPage, RecipePage,LoginPage, RegisterPage } from "./page";
+
 
 function App() {
   return (
     <Router>
       <GlobalStyle />
       <Navbar />
-      {/* <Slider />
-      <HomeRecipeList /> */}
-      {/* <RecipeList /> */}
-      {/* <Recipe /> */}
-      {/* <CategoryList /> */}
-      {/* <SignUp /> */}
-      <AddRecipe />
       <Switch>
-        <Route />
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/categories">
+          <CategoryListPage />
+        </Route>
+        <Route path="/add-Recipe">
+          <AddRecipePage />
+        </Route>
+        <Route exact path="/recipes">
+          <RecipeListPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
       </Switch>
       <Footer />
     </Router>
