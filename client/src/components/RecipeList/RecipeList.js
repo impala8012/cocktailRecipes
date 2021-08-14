@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   RecipeListContainer,
-  RecipeListHead,
   RecipeListHeadRow,
   RecipeListHeadInfo,
   RecipeListBody,
@@ -10,8 +9,18 @@ import {
   RecipeListBodyDescTitle,
   RecipeListBodyDescContent,
 } from "./RecipeList.element";
-
+import { getAllRecipes } from "../../WebApi";
 const RecipeList = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAllRecipes();
+      console.log(response);
+      setRecipes(response);
+    };
+    fetchData();
+  }, []);
   return (
     <RecipeListContainer>
       <RecipeListHeadRow>
@@ -20,107 +29,22 @@ const RecipeList = () => {
         <RecipeListHeadInfo>分類</RecipeListHeadInfo>
       </RecipeListHeadRow>
       <RecipeListBody>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>琴酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>好喝喔</RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-                <RecipeListBodyRow>
-          <RecipeListBodyDesc>
-            <RecipeListBodyDescTitle>好喝的酒</RecipeListBodyDescTitle>
-            <RecipeListBodyDescContent>
-              gfdgfdhgfhgfchfdfbvx
-            </RecipeListBodyDescContent>
-          </RecipeListBodyDesc>
-          <RecipeListBodyDesc>3</RecipeListBodyDesc>
-          <RecipeListBodyDesc>琴酒</RecipeListBodyDesc>
-        </RecipeListBodyRow>
-        
+        {recipes.map((recipe, index) => {
+          return (
+            <RecipeListBodyRow key={index}>
+              <RecipeListBodyDesc>
+                <RecipeListBodyDescTitle>
+                  {recipe.recipe_title}
+                </RecipeListBodyDescTitle>
+                <RecipeListBodyDescContent>
+                  {recipe.recipe_content}
+                </RecipeListBodyDescContent>
+              </RecipeListBodyDesc>
+              <RecipeListBodyDesc>3</RecipeListBodyDesc>
+              <RecipeListBodyDesc>{recipe.category}</RecipeListBodyDesc>
+            </RecipeListBodyRow>
+          );
+        })}
       </RecipeListBody>
     </RecipeListContainer>
   );

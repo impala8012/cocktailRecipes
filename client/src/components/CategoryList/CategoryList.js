@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
 import {
   CategoryListContainer,
   Wrapper,
-  CategoryLists,
-  CategoryTitle,
   CategoryListHeadRow,
   CategoryListHeadInfo,
   CategoryListBody,
@@ -14,28 +12,58 @@ import {
   CategoryListHead,
 } from "./CategoryList.element";
 
+import {getCategories} from "../../WebApi"
+import { LoadingContext } from "../../contexts";
+import { Loading } from "../index";
 const CategoryList = () => {
+
+  const [categories, setCategories] = useState([])
+  const {isLoading, setIsLoading} = useContext(LoadingContext);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      const response = await getCategories();
+      console.log("my res", response);
+      setCategories(response.data);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [setIsLoading]);
   return (
     <Wrapper>
-      <CategoryListContainer>
-        <CategoryListHead>
-          <CategoryListHeadRow>
-            <CategoryListHeadInfo>分類</CategoryListHeadInfo>
-            <CategoryListHeadInfo>文章數</CategoryListHeadInfo>
-          </CategoryListHeadRow>
-        </CategoryListHead>
-        <CategoryListBody>
-          <CategoryListBodyRow>
-            <CategoryListBodyDesc>
-              <CategoryListBodyDescTitle to="/">琴酒</CategoryListBodyDescTitle>
-              <CategoryListBodyDescContent>
-                介紹琴酒的歷史
-              </CategoryListBodyDescContent>
-            </CategoryListBodyDesc>
-            <CategoryListBodyDesc>3</CategoryListBodyDesc>
-          </CategoryListBodyRow>
-        </CategoryListBody>
-      </CategoryListContainer>
+      {isLoading ? (
+        (<Loading />)
+      ) : (
+        <CategoryListContainer>
+          <CategoryListHead>
+            <CategoryListHeadRow>
+              <CategoryListHeadInfo>分類</CategoryListHeadInfo>
+              <CategoryListHeadInfo>文章</CategoryListHeadInfo>
+            </CategoryListHeadRow>
+          </CategoryListHead>
+          <CategoryListBody>
+            {categories.length !== 0 &&
+              categories.map((category) => {
+                return (
+                  <CategoryListBodyRow key={category.category_id}>
+                    <CategoryListBodyDesc>
+                      <CategoryListBodyDescTitle
+                        to={`/categories/${category.category_id}`}
+                      >
+                        {category.category}
+                      </CategoryListBodyDescTitle>
+                      <CategoryListBodyDescContent>
+                        {category.category_desc}
+                      </CategoryListBodyDescContent>
+                    </CategoryListBodyDesc>
+                    <CategoryListBodyDesc>3</CategoryListBodyDesc>
+                  </CategoryListBodyRow>
+                );
+              })}
+          </CategoryListBody>
+        </CategoryListContainer>
+      )}
     </Wrapper>
   );
 }

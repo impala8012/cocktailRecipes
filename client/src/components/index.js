@@ -10,3 +10,4 @@ export { default as CategoryList } from "./CategoryList/CategoryList";
 export { default as FormInput } from "./FormInput/FormInput";
 export { default as SignIn } from "./SignIn/SignIn";
 export { default as SignUp } from "./SignUp/SignUp";
+export { default as Loading } from "./Loading/Loading";

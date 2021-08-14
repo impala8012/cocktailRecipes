@@ -2,13 +2,16 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
-  height: 70vh;
+  height: auto;
 `
 export const CategoryListContainer = styled.div`
-  width: 60%;
-  margin: 50px auto 100px auto;
+  width: 50%;
+  margin: 20px auto 100px auto;
   display: table;
   border-collapse: collapse;
+  @media screen and (max-width: 820px) {
+    width: 90%;
+  }
 `;
 export const CategoryListHead = styled.div`
   display: table-header-group;
@@ -16,35 +19,28 @@ export const CategoryListHead = styled.div`
   border-color: inherit;
 `;
 
-export const CategoryLists = styled.div`
-  padding: 24px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #9a9a9a;
-  font-size: 14px;
-  width: 920px;
-`;
-
-export const CategoryTitle = styled.div`
-  font-size: 16px;
-  margin-left: 16px;
-`;
-
 export const CategoryListHeadRow = styled.div`
   display: table-row;
   font-size: 1.5rem;
   font-weight: bold;
   border-bottom: 1px ridge #bdbdbd;
+  @media screen and (max-width: 820px) {
+    font-size: 1rem;
+  }
 `;
 
 export const CategoryListHeadInfo = styled.div`
   display: table-cell;
-  vertical-align: inherit;
+  vertical-align: middle;
   padding: 10px;
   &:not(:first-child) {
     text-align: center;
     vertical-align: middle;
+  }
+  @media screen and (max-width: 820px) {
+    &:first-child {
+      vertical-align: bottom;
+    }
   }
 `;
 export const CategoryListBody = styled.div`
@@ -59,17 +55,25 @@ export const CategoryListBodyDesc = styled.div`
   vertical-align: inherit;
   padding: 10px;
   &:first-child {
-    width: 500px;
+    width: 550px;
     display: flex;
     flex-direction: column;
+    line-height: 1.5rem;
   }
 
   &:not(:first-child) {
     text-align: center;
     vertical-align: middle;
   }
+
+  @media screen and (max-width: 820px) {
+    &:first-child {
+      width: 400px;
+    }
+  }
 `;
 export const CategoryListBodyDescTitle = styled(Link)`
+width: 10%;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;

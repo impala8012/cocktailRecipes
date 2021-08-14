@@ -26,7 +26,7 @@ const HomeRecipeList = () => {
   return (
     <div>
       <HomeRecipeContainer>
-        {/* {setRecipes.map((recipe, index) => { */}
+        {/* {recipes.map((recipe, index) => { */}
         {/* return ( */}
         <RecipeImgWrapper>
           <RecipeImg

@@ -11,7 +11,7 @@ router.post("/recipes/:id/comments", async (req, res, next) => {
       return res.json("有欄位忘記填囉");
     }
     const newComment = await pool.query(
-      "INSERT INTO comments (description, rating, recipe_id) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO comments (comment_description, comment_rating, recipe_id) VALUES ($1, $2, $3) RETURNING *",
       [description, rating, id]
     );
     res.status(201).json(newComment.rows[0]);
@@ -27,7 +27,7 @@ router.put("/recipes/:id/comments/:comment_id", async (req, res, next) => {
     const { comment_id } = req.params;
     const { description, rating } = req.body;
     const updatedComment = await pool.query(
-      "UPDATE comments SET description = $1, rating = $2 WHERE comment_id = $3",
+      "UPDATE comments SET comment_description = $1, comment_rating = $2 WHERE comment_id = $3",
       [description, rating, comment_id]
     );
     res.status(204).json("update successfully");

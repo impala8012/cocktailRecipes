@@ -41,11 +41,11 @@ router.get("/:id", async (req, res, next) => {
 // CREATE a category
 router.post("/", async (req, res, next) => {
   try {
-    const { category } = req.body;
+    const { category, description } = req.body;
     console.log("category", category);
     const newCategory = await pool.query(
-      "INSERT INTO categories (category) VALUES($1) RETURNING *",
-      [category]
+      "INSERT INTO categories (category,category_desc) VALUES($1,$2) RETURNING *",
+      [category,description]
     );
     console.log("post new category", newCategory);
     res.status(201).json({
@@ -62,10 +62,10 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { category } = req.body;
+    const { category, description } = req.body;
     const newCategory = await pool.query(
-      "UPDATE categories SET category = $1 WHERE category_id = $2",
-      [category, id]
+      "UPDATE categories SET category = $1, description = $2 WHERE category_id = $3",
+      [category, description, id]
     );
     res.status(204).json({
       status: "success",

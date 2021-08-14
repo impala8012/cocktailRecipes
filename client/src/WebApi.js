@@ -1,14 +1,16 @@
 const BASE_URL="http://localhost:5000"
 
+/* Category */
 // get all the categories
 export const getCategories = () => {
-  return fetch(`${BASE_URL}/categories`).then(res => res.json())
+  return fetch(`${BASE_URL}/categories`).then((res) => res.json())
 }
 // get recipe list by category id
 export const getRecipeListByCategoryId = (category_id) => {
   return fetch(`${BASE_URL}/categories/${category_id}`).then(res => res.json())
 }
 
+/* Recipe */
 // get top 10 recipes
 export const getTop10Recipes = () => {
   return fetch(`${BASE_URL}/recipes/?per_page=10`).then(res=>res.json())
@@ -27,19 +29,11 @@ export const getRecipe = (recipe_id) => {
 }
 
 // CREATE a recipe
-export const createRecipe = (title, ingredient, content, img) => {
+export const createRecipe = (formData) => {
   return fetch(`${BASE_URL}/recipes`, {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-      ingredient,
-      content,
-      img,
-    }),
-  }).then(res => res.json())
+    body: formData,
+  });
 };
 
 // Update a recipe
@@ -68,6 +62,7 @@ export const deleteRecipe = (recipe_id) => {
   }).then((res) => res.json());
 };
 
+/* Comments */
 // CREATE a comment
 export const createComment = (recipe_id, description, rating) => {
   return fetch(`${BASE_URL}/recipes/${recipe_id}/comments`, {

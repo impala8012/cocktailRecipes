@@ -55,13 +55,17 @@ export const AddRecipeInput = styled.input`
     ${shrinkLabelStyles};
   }
 `;
+export const AddRecipeImgDivider = styled(AddRecipeDivider)`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const ImgLabelContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 300px;
-  position: absolute;
-  top: 110%;
+  width: 350px;
+  margin-top:10px;
+  /* position: absolute; */
 `;
 
 export const AddRecipeimgInput = styled(AddRecipeInput)`
@@ -77,8 +81,8 @@ export const ImgLabel = styled.label`
   border-radius: 10px;
 `;
 export const AddRecipeImgPreview = styled.div`
-  width: 300px;
-  height: 200px;
+  width: 350px;
+  height: 300px;
   position: relative;
 `;
 
