@@ -8,7 +8,7 @@ export const SliderContainer = styled.section`
   justify-content: center;
   align-items: center;
 
-  &:after {
+  /* &:after {
     content: "來杯屬於自己的調酒吧";
     position: absolute;
     font-size: 2rem;
@@ -19,7 +19,7 @@ export const SliderContainer = styled.section`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+  } */
 `;
 
 export const LeftArrow = styled(FaArrowAltCircleLeft)`
@@ -62,8 +62,8 @@ export const ImageContainer = styled.div`
     active === true &&
     `
     opacity: 1;
-    transition-duration: 1s;
-    transform: scale(1.03);
+    transition-duration: 3s;
+    transform: scale(1.04);
   `}
 `;
 

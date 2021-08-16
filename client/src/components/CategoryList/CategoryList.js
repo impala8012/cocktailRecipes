@@ -12,13 +12,12 @@ import {
   CategoryListHead,
 } from "./CategoryList.element";
 
-import {getCategories} from "../../WebApi"
+import { getCategories } from "../../WebApi";
 import { LoadingContext } from "../../contexts";
 import { Loading } from "../index";
 const CategoryList = () => {
-
-  const [categories, setCategories] = useState([])
-  const {isLoading, setIsLoading} = useContext(LoadingContext);
+  const [categories, setCategories] = useState([]);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -33,7 +32,7 @@ const CategoryList = () => {
   return (
     <Wrapper>
       {isLoading ? (
-        (<Loading />)
+        <Loading />
       ) : (
         <CategoryListContainer>
           <CategoryListHead>
@@ -66,6 +65,6 @@ const CategoryList = () => {
       )}
     </Wrapper>
   );
-}
+};
 
-export default CategoryList
+export default CategoryList;

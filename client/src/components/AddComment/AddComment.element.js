@@ -4,7 +4,6 @@ import { Container, CustomButton } from "../../globalStyle";
 export const AddCommentContainer = styled(Container)`
   width: 70%;
   margin: 30px auto;
-  background: blue;
   padding: 30px; ;
 `;
 

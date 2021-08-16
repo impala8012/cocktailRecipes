@@ -17,7 +17,6 @@ export const RecipeImg = styled.img`
   width: 350px;
   height: 200px;
   border-radius: 10px;
-
 `;
 
 export const RecipeInfo = styled.div`
@@ -44,12 +43,15 @@ export const RecipeInfo = styled.div`
 export const RecipeImgWrapper = styled.div`
   position: relative;
   display: flex;
-  margin-bottom: 10px;
+  margin: 10px 15px 20px 15px;
 
   &:hover ${RecipeInfo} {
     opacity: 1;
     transform: scale(1);
     transition: 1s;
+  }
+  @media screen and (max-width: 768px) {
+    margin: 0 10px 30px 10px;
   }
 `;
 

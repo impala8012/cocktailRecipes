@@ -7,14 +7,30 @@ const upload = multer({ storage });
 // GET all recipes
 router.get("/", async (req, res, next) => {
   try {
-    const {per_page, page} = req.query
-    const offset = per_page * (page - 1)
-    const recipes = await pool.query(
-      "SELECT * FROM recipes LEFT OUTER JOIN (SELECT recipe_id as comment_recipe_id, comment_description, comment_rating FROM comments) comments ON recipes.recipe_id = comment_recipe_id LEFT JOIN (SELECT category_id as categories_category_id, category from categories) categories ON recipes.category_id = categories_category_id LIMIT $1 OFFSET $2",
-      [per_page, offset]
-    );
-    console.log(recipes);
-    res.status(200).json(recipes.rows);
+    if (req.query.page) {
+      const { per_page, page } = req.query;
+      const offset = per_page * (page - 1);
+      const recipes = await pool.query(
+        "SELECT * FROM recipes LEFT JOIN (SELECT category_id as categories_category_id, category from categories) categories ON recipes.category_id = categories_category_id LIMIT $1 OFFSET $2",
+        [per_page, offset]
+      );
+      console.log(recipes);
+      res.status(200).json(recipes.rows);
+    } else if (!req.query.page) {
+      const { per_page } = req.query;
+      const recipes = await pool.query(
+        "SELECT * FROM recipes LEFT JOIN (SELECT category_id as categories_category_id, category from categories) categories ON recipes.category_id = categories_category_id LIMIT $1",
+        [per_page]
+      );
+      console.log(recipes);
+      res.status(200).json(recipes.rows);
+    } else {
+      const recipes = await pool.query(
+        "SELECT * FROM recipes LEFT JOIN (SELECT category_id as categories_category_id, category from categories) categories ON recipes.category_id = categories_category_id"
+      );
+      console.log(recipes);
+      res.status(200).json(recipes.rows);
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
@@ -26,7 +42,8 @@ router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const recipe = await pool.query(
-      "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id, image_url from recipe_images) recipe_images ON recipes.recipe_id = recipe_images.recipe_id LEFT OUTER JOIN (SELECT recipe_id as comment_recipe_id, comment_description, comment_rating FROM comments) comments ON recipes.recipe_id = comments.id WHERE recipes.recipe_id = $1",
+      // "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id as comment_recipe_id, comment_description, comment_rating FROM comments) comments ON recipes.recipe_id = comment_recipe_id WHERE recipes.recipe_id = $1",
+      "SELECT * FROM recipes WHERE recipes.recipe_id = $1",
       [id]
     );
     console.log(recipe);
@@ -46,10 +63,10 @@ router.post("/", upload.single("image"), async (req, res, next) => {
     //     path: file.path,
     //   });
     // }
-    console.log("req.body", req.body)
-    console.log("req.file", req.file)
+    console.log("req.body", req.body);
+    console.log("req.file", req.file);
     const { title, ingredient, content, category_id } = req.body;
-    const {path} = req.file
+    const { path } = req.file;
     // const img1 = images[0].path;
     // const img2 = images[1].path;
     if (!title || !ingredient || !content || !category_id) {

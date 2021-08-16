@@ -2,11 +2,10 @@ import React,{useState} from 'react'
 import { StarContainer, RadioInput, Star } from "./StarRating.element";
 
 
-const StarRating = ({ rating, setRating, handleClick }) => {
-  // const [rating, setRating] = useState(null);
+const StarRating = ({ rating, setRating }) => {
   const [hover, setHover] = useState(null);
 
-  // const handleClick = (e) => setRating(e.target.value);
+  const handleClick = (e) => setRating(e.target.value);
   const handleMouseEnter = () => (ratingValue) => setHover(ratingValue);
   const handleMouseLeave = () => setHover(null);
   return (

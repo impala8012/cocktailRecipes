@@ -9,15 +9,16 @@ const recipeRouter = require("./routes/recipes");
 const userRouter = require("./routes/users");
 
 // middleware
-app.use(
-  cors({
-    allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
-    exposedHeaders: ["authorization"], // you can change the headers
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-  })
-);
+// app.use(
+//   cors({
+//     allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
+//     exposedHeaders: ["authorization"], // you can change the headers
+//     origin: "*",
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     preflightContinue: false,
+//   })
+// );
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

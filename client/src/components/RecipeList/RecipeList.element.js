@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const RecipeListContainer = styled.div`
   width: 60%;
@@ -60,6 +61,9 @@ export const RecipeListBodyDescTitle = styled.span`
   font-weight: bold;
 `;
 
-export const RecipeListBodyDescContent = styled.a`
+export const RecipeListBodyDescContent = styled(Link)`
   font-size: 16px;
+  text-decoration: none;
+  color: #6f6e75;
+  margin-top:5px;
 `;

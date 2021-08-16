@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
+import parse from "html-react-parser";
 import {
   RecipeContainer,
   RecipeImgContainer,
@@ -8,28 +9,74 @@ import {
   RecipeSubtitle,
   RecipeDesc,
 } from "./Recipe.element";
+import { useParams } from "react-router-dom";
+import { getRecipe } from "../../WebApi";
+import { LoadingContext } from "../../contexts";
+import { Loading } from "../index";
 
-import Comments from "../Comments/Comments"
-import AddComment from "../AddComment/AddComment";
-import StarRating from "../StarRating/StarRating";
+const Recipe = ({ recipeChange, setRecipeChange}) => {
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState([]);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  // var plainString = htmlString.replace(/<[^>]+>/g, "");
 
-const Recipe = () => {
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      const response = await getRecipe(id);
+      console.log("response from recipe", response);
+      // const comment = await getComments(id);
+      // console.log("response from comment", comment);
+      // setComments(comment);
+      setRecipe(response);
+      setIsLoading(false);
+      setRecipeChange(false);
+    };
+    fetchData();
+  }, [id, setIsLoading, recipeChange, setRecipeChange]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     console.log("cleaned up");
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const fetchData = async () => {
+  //     const comment = await getComments(id);
+  //     console.log("response from comment", comment);
+  //     setComments(comment);
+  //     setIsLoading(false);
+  //   };
+  //   fetchData();
+  // }, [id, setIsLoading]);
   return (
-    <div>
-      <RecipeContainer>
-        <RecipeImgContainer>
-          <RecipeImg src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWxzfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"/>
-        </RecipeImgContainer>
-        <RecipeContentContainer>
-          <RecipeTitle>酒譜1</RecipeTitle>
-          <RecipeSubtitle>材料:準備好久</RecipeSubtitle>
-          <RecipeDesc>jfdkgkdhfkhsdkfsjfdsjhdifjlsdnfdchhkifjkgnjfdhjk</RecipeDesc>
-        </RecipeContentContainer>
-      </RecipeContainer>
-      <AddComment />
-      <Comments />
-    </div>
-  )
-}
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <RecipeContainer>
+            <RecipeImgContainer>
+              <RecipeImg src={recipe.recipe_image_url} />
+            </RecipeImgContainer>
+            <RecipeContentContainer>
+              <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
+              <RecipeSubtitle>材料:{recipe.recipe_ingredient}</RecipeSubtitle>
+              <RecipeDesc>{parse(`${recipe.recipe_content}`)}</RecipeDesc>
+            </RecipeContentContainer>
+          </RecipeContainer>
+          {/* <AddComment setRecipeChange={setRecipeChange} />
+          <Comments
+            allComments={comments}
+            setAllComments={setComments}
+            isLoading={isLoading}
+          /> */}
+        </>
+      )}
+    </>
+  );
+};
 
-export default Recipe
+export default Recipe;

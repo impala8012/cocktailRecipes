@@ -9,19 +9,30 @@ import {
   Dot
 } from "./Slider.element";
 import { sliderData } from "./Data";
-console.log("sliderData", sliderData);
+import { TextAnimation } from "../index";
+import {unsplashFoto} from "../../WebApi"
 
-const length = sliderData.length;
 
 const Slider = () => {
+  const [pics, setPics] = useState([])
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log("activeIndex", activeIndex);
+  // console.log("activeIndex", activeIndex);
+  useEffect(()=>{
+    const fetchData = async() => {
+      const response = await unsplashFoto()
+      console.log(response)
+      setPics(response)
+    }
+    fetchData()
+  },[])
+  const length = pics.length;
+
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex(activeIndex === length - 1 ? 0 : activeIndex + 1);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(interval);
-  }, [activeIndex]);
+  }, [activeIndex, length]);
 
   const nextSlide = () =>
     setActiveIndex(activeIndex === length - 1 ? 0 : activeIndex + 1);
@@ -34,15 +45,18 @@ const Slider = () => {
 
   return (
     <SliderContainer>
+      <TextAnimation/>
       <LeftArrow onClick={prevSlide} />
       <RightArrow onClick={nextSlide} />
-      {sliderData.map((slide, index) => {
+      {pics.map((pic, index) => {
         return (
           <ImageContainer
             active={index === activeIndex ? true : false}
             key={index}
           >
-            {index === activeIndex && <Img alt="image" src={slide.image} />}
+            {index === activeIndex && (
+              <Img alt="image" src={pic.urls.regular} />
+            )}
           </ImageContainer>
         );
       })}

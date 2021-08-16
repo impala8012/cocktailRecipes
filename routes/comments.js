@@ -1,11 +1,25 @@
-const router = require('express').Router()
-const pool = require('../db')
+const router = require("express").Router();
+const pool = require("../db");
+
+// GET comments
+router.get("/recipes/:id/comments", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const comments = await pool.query(
+      "SELECT * FROM comments WHERE recipe_id = $1",
+      [id]
+    );
+    res.status(200).json(comments.rows);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // CREATE comment
 router.post("/recipes/:id/comments", async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log("id", id);
     const { description, rating } = req.body;
     if (!description || !rating) {
       return res.json("有欄位忘記填囉");
@@ -52,4 +66,4 @@ router.delete("/recipes/:id/comments/:comment_id", async (req, res, next) => {
   }
 });
 
-module.exports = router
+module.exports = router;

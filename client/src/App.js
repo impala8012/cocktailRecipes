@@ -5,14 +5,22 @@ import {
   Navbar,
   Footer,
 } from "./components";
-import { HomePage, CategoryListPage, AddRecipePage, RecipeListPage, LoginPage, RegisterPage } from "./page";
+import {
+  HomePage,
+  CategoryListPage,
+  AddRecipePage,
+  RecipeListPage,
+  LoginPage,
+  RegisterPage,
+  RecipePage,
+} from "./page";
 import {LoadingContext} from "./contexts"
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   return (
-      <Router>
-        <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+    <Router>
+      <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
         <GlobalStyle />
         <Navbar />
         <Switch>
@@ -28,6 +36,9 @@ function App() {
           <Route exact path="/recipes">
             <RecipeListPage />
           </Route>
+          <Route path="/recipes/:id">
+            <RecipePage />
+          </Route>
           <Route path="/login">
             <LoginPage />
           </Route>
@@ -36,8 +47,8 @@ function App() {
           </Route>
         </Switch>
         <Footer />
-        </LoadingContext.Provider>
-      </Router>
+      </LoadingContext.Provider>
+    </Router>
   );
 }
 

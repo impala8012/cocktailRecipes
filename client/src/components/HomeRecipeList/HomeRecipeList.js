@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect, useContext } from "react";
 import {
   HomeRecipeContainer,
   RecipeImgWrapper,
@@ -6,58 +6,50 @@ import {
   RecipeInfo,
   RecipeTitle,
 } from "./HomeRecipeList.element";
-
+import {getTop10Recipes} from "../../WebApi"
+import { LoadingContext } from "../../contexts";
+import { Loading } from "../index";
+import AOS from "aos";
+import "aos/dist/aos.css";
 const HomeRecipeList = () => {
   const [recipes, setRecipes] = useState([])
-  // const getTop10Recipe = async() => {
-  //   try {
-  //     const response = await fetch("http://localhost:5000/recipes",{
-  //       method: "GET",
-  //     })
-  //     const jsonData = await response.json()
-  //     setRecipes(jsonData)
-  //   } catch (err) {
-  //     console.log(err.message)
-  //   }
-  // }
-  // useEffect(()=>{
-  //   getTop10Recipe()
-  // },[])
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 2000,
+    });
+    
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      const response = await getTop10Recipes();
+      console.log("response for home page", response);
+      setRecipes(response);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [setIsLoading]);
   return (
     <div>
-      <HomeRecipeContainer>
-        {/* {recipes.map((recipe, index) => { */}
-        {/* return ( */}
-        <RecipeImgWrapper>
-          <RecipeImg
-            alt="image"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWxzfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-          />
-          <RecipeInfo>
-            <RecipeTitle>我是 title</RecipeTitle>
-          </RecipeInfo>
-        </RecipeImgWrapper>
-        <RecipeImgWrapper>
-          <RecipeImg
-            alt="image"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWxzfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-          />
-          <RecipeInfo>
-            <RecipeTitle>我是 title</RecipeTitle>
-          </RecipeInfo>
-        </RecipeImgWrapper>
-        <RecipeImgWrapper>
-          <RecipeImg
-            alt="image"
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y29ja3RhaWxzfGVufDB8MHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-          />
-          <RecipeInfo>
-            <RecipeTitle>我是 title</RecipeTitle>
-          </RecipeInfo>
-        </RecipeImgWrapper>
-        {/* ); */}
-        {/* })} */}
-      </HomeRecipeContainer>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <HomeRecipeContainer>
+          {recipes.map((recipe, index) => {
+            return (
+              <RecipeImgWrapper key={index} data-aos="flip-left">
+                <RecipeImg alt="image" src={recipe.recipe_image_url} />
+                <RecipeInfo>
+                  <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
+                </RecipeInfo>
+              </RecipeImgWrapper>
+            );
+          })}
+        </HomeRecipeContainer>
+      )}
     </div>
   );
 }

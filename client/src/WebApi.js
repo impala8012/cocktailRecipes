@@ -17,16 +17,23 @@ export const getTop10Recipes = () => {
 }
 
 // get all recipe with 10 items per page
-export const getAllRecipes = () => {
+export const getAllRecipesPagenation = () => {
   const per_page = 10;
   const page = 1
   return fetch(`${BASE_URL}/recipes/?per_page=${per_page}&page=${page}`).then(res => res.json());
 }
 
+// get all recipe with 10 items per page
+export const getAllRecipes = () => {
+  return fetch(`${BASE_URL}/recipes/`).then(res => res.json());
+}
+
 // get a recipe
 export const getRecipe = (recipe_id) => {
-  return fetch(`${BASE_URL}/recipes/${recipe_id}`)
-}
+  return fetch(`${BASE_URL}/recipes/${recipe_id}`).then((res) =>
+    res.json()
+  );
+};
 
 // CREATE a recipe
 export const createRecipe = (formData) => {
@@ -63,8 +70,16 @@ export const deleteRecipe = (recipe_id) => {
 };
 
 /* Comments */
+// GET comment by recipeID
+export const getComments = (recipe_id) => {
+  return fetch(`${BASE_URL}/recipes/${recipe_id}/comments`,{
+  }).then((res) =>
+    res.json()
+  );
+};
+
 // CREATE a comment
-export const createComment = (recipe_id, description, rating) => {
+export const createComment = (recipe_id, description, rating, signal) => {
   return fetch(`${BASE_URL}/recipes/${recipe_id}/comments`, {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -72,7 +87,8 @@ export const createComment = (recipe_id, description, rating) => {
       description,
       rating,
     }),
-  }).then(res=>res.json())
+    signal,
+  }).then((res) => res.json());
 };
 
 // Update a comment
@@ -88,3 +104,13 @@ export const updatedComment = (recipe_id, description, rating, comment_id) => {
     }),
   }).then(res => res.json())
 }
+
+export const unsplashFoto = () => {
+  return fetch(`https://api.unsplash.com/users/silverlining_dyl/likes`, {
+    method: "GET",
+    headers: {
+      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_KEY}`,
+    },
+  }).then((res) => res.json());
+}
+;
