@@ -48,7 +48,11 @@ const CategoryList = () => {
                   <CategoryListBodyRow key={category.category_id}>
                     <CategoryListBodyDesc>
                       <CategoryListBodyDescTitle
-                        to={`/categories/${category.category_id}`}
+                        to={{
+                          pathname: `/categories/${category.category_id}`,
+                          state: { category: `${category.category}` },
+                        }}
+                        category={category.category}
                       >
                         {category.category}
                       </CategoryListBodyDescTitle>
@@ -56,7 +60,9 @@ const CategoryList = () => {
                         {category.category_desc}
                       </CategoryListBodyDescContent>
                     </CategoryListBodyDesc>
-                    <CategoryListBodyDesc>3</CategoryListBodyDesc>
+                    <CategoryListBodyDesc>
+                      {category.recipes_count ? category.recipes_count : 0}
+                    </CategoryListBodyDesc>
                   </CategoryListBodyRow>
                 );
               })}

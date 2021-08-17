@@ -24,11 +24,19 @@ export const RecipeListHeadRow = styled.div`
 
 export const RecipeListHeadInfo = styled.div`
   display: table-cell;
-  vertical-align: inherit;
+  vertical-align: middle;
   padding: 10px;
   &:not(:first-child) {
     text-align: center;
     vertical-align: middle;
+  }
+  @media screen and (max-width: 820px) {
+    &:first-child {
+      /* text-align: bottom; */
+      writing-mode: vertical-lr;
+      vertical-align: top;
+      padding-top:60px;
+    }
   }
 `;
 
@@ -55,15 +63,27 @@ export const RecipeListBodyDesc = styled.div`
     text-align: center;
     vertical-align: middle;
   }
+  @media screen and (max-width: 820px) {
+    &:first-child {
+      width: 400px;
+    }
+  }
 `;
 
 export const RecipeListBodyDescTitle = styled.span`
+  font-size: 1.2rem;
   font-weight: bold;
 `;
 
 export const RecipeListBodyDescContent = styled(Link)`
-  font-size: 16px;
+  font-size: 1rem;
   text-decoration: none;
   color: #6f6e75;
-  margin-top:5px;
+  margin-top: 5px;
+`;
+;
+
+export const RecipeListBodyDescContentCategory = styled(RecipeListBodyDescContent)`
+  font-weight: bold;
+  font-size: 1rem;
 `;

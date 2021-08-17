@@ -4,7 +4,9 @@ const pool = require("../db");
 // GET All categorys
 router.get("/", async (req, res, next) => {
   try {
-    const categories = await pool.query("SELECT * FROM categories");
+    const categories = await pool.query(
+      "SELECT * FROM categories LEFT JOIN (SELECT category_id as recipe_category_id, count(recipe_id) as recipes_count FROM recipes GROUP BY recipe_category_id) recipe_category_id on categories.category_id = recipe_category_id"
+    );
     console.log("get all category", categories);
     res.status(200).json({status: "success",data: categories.rows});
   } catch (err) {

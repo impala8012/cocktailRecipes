@@ -44,29 +44,18 @@ export const createRecipe = (formData) => {
 };
 
 // Update a recipe
-export const updateRecipe = (recipe_id, title, ingredient, content, img) => {
+export const updateRecipe = (recipe_id,formData) => {
   return fetch(`${BASE_URL}/recipes/${recipe_id}`, {
     method: "PUT",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-      ingredient,
-      content,
-      img,
-    }),
-  }).then((res) => res.json());
+    body: formData,
+  });
 };
 
 // DELETE a recipe
 export const deleteRecipe = (recipe_id) => {
   return fetch(`${BASE_URL}/recipes/${recipe_id}`, {
     method: "DELETE",
-    headers: {
-      "content-type": "application/json",
-    },
-  }).then((res) => res.json());
+  })
 };
 
 /* Comments */

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import {Link} from "react-router-dom"
 
 export const HomeRecipeContainer = styled.div`
   display: flex;
@@ -23,8 +24,8 @@ export const RecipeInfo = styled.div`
   position: absolute;
   top: 34%;
   left: 10%;
-  width: 80%;
-  height: 65%;
+  width: 70%;
+  height: 55%;
   padding: 5px;
   border-radius: 10px;
   box-sizing: border-box;
@@ -56,9 +57,11 @@ export const RecipeImgWrapper = styled.div`
 `;
 
 
-export const RecipeTitle = styled.h3`
+export const RecipeTitle = styled(Link)`
+  font-size: 1.5rem;
   color: #fff;
   margin-bottom: 0.4em;
+  text-decoration: none;
   @media screen and (max-width: 768px) {
     font-size: 1rem;
   }

@@ -2,16 +2,15 @@ import styled from "styled-components";
 import { Container } from "../../globalStyle";
 
 export const CommentsContainer = styled(Container)`
-  width: 70%;
+  width:60%;
   margin: 30px auto;
-  background: light-blue;
   padding: 30px; ;
 `;
 
 export const CommentsHeader = styled.div`
   width: 100%;
-  background: red;
   display: inline-flex;
+  border-bottom: 3px solid #efefef;
 `;
 export const CommentBoard = styled.div`
   display: flex;

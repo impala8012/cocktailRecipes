@@ -43,7 +43,9 @@ const HomeRecipeList = () => {
               <RecipeImgWrapper key={index} data-aos="flip-left">
                 <RecipeImg alt="image" src={recipe.recipe_image_url} />
                 <RecipeInfo>
-                  <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
+                  <RecipeTitle to={`/recipes/${recipe.recipe_id}`}>
+                    {recipe.recipe_title}
+                  </RecipeTitle>
                 </RecipeInfo>
               </RecipeImgWrapper>
             );

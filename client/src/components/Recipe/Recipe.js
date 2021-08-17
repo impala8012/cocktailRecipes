@@ -8,9 +8,13 @@ import {
   RecipeTitle,
   RecipeSubtitle,
   RecipeDesc,
+  RecipeHeader,
+  RecipeDelete,
+  RecipeEdit,
+  RecipeNav,
 } from "./Recipe.element";
-import { useParams } from "react-router-dom";
-import { getRecipe } from "../../WebApi";
+import { useParams, useHistory } from "react-router-dom";
+import { getRecipe,deleteRecipe } from "../../WebApi";
 import { LoadingContext } from "../../contexts";
 import { Loading } from "../index";
 
@@ -19,12 +23,12 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
   const [recipe, setRecipe] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   // var plainString = htmlString.replace(/<[^>]+>/g, "");
-
+  let history = useHistory();
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
       const response = await getRecipe(id);
-      console.log("response from recipe", response);
+      // console.log("response from recipe", response);
       // const comment = await getComments(id);
       // console.log("response from comment", comment);
       // setComments(comment);
@@ -36,12 +40,6 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
   }, [id, setIsLoading, recipeChange, setRecipeChange]);
 
   // useEffect(() => {
-  //   return () => {
-  //     console.log("cleaned up");
-  //   };
-  // }, []);
-
-  // useEffect(() => {
   //   setIsLoading(true);
   //   const fetchData = async () => {
   //     const comment = await getComments(id);
@@ -51,6 +49,16 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
   //   };
   //   fetchData();
   // }, [id, setIsLoading]);
+  const handleClick = () => async() => {
+    try {
+      await deleteRecipe(id)
+      history.push("/recipes")
+    } catch(err){
+      console.log(err.message)
+    }
+  }
+
+  console.log("recipe from recipe", recipe.recipe_id)
   return (
     <>
       {isLoading ? (
@@ -62,7 +70,20 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
               <RecipeImg src={recipe.recipe_image_url} />
             </RecipeImgContainer>
             <RecipeContentContainer>
-              <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
+              <RecipeHeader>
+                <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
+                <RecipeNav>
+                  <RecipeEdit
+                    to={{
+                      pathname: `/recipes/${recipe.recipe_id}/edit`,
+                      state: { recipe: { recipe } },
+                    }}
+                  >
+                    編輯
+                  </RecipeEdit>
+                  <RecipeDelete onClick={handleClick(id)}>刪除</RecipeDelete>
+                </RecipeNav>
+              </RecipeHeader>
               <RecipeSubtitle>材料:{recipe.recipe_ingredient}</RecipeSubtitle>
               <RecipeDesc>{parse(`${recipe.recipe_content}`)}</RecipeDesc>
             </RecipeContentContainer>

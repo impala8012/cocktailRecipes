@@ -18,25 +18,30 @@ import {
   ImgLabel,
   ImgLabelContainer,
   AddRecipeImgDivider,
-} from "./AddRecipe.element";
+} from "./EditRecipe.element";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {useLocation, useParams, useHistory} from "react-router-dom"
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { AiFillPicture } from "react-icons/ai";
-import { getCategories, createRecipe } from "../../WebApi";
-import {useHistory} from "react-router-dom"
-const AddRecipe = () => {
+import { getCategories, updateRecipe } from "../../WebApi";
+
+const EditRecipe = () => {
+  const location = useLocation();
+  const {recipe} = location.state;
+  // console.log("recipe from edit", recipe);
+  // console.log("recipe from edit title", recipe.recipe.recipe_title);
   const [value, setValue] = useState({
-    title: "",
-    ingredient: "",
-    content: "",
-    category_id: "1",
+    title: recipe.recipe.recipe_title,
+    ingredient: recipe.recipe.recipe_ingredient,
+    content: recipe.recipe.recipe_content,
+    category_id: recipe.recipe.category_id,
   });
   const [categoryList, setCategoryList] = useState([]);
   const [img, setImg] = useState({
-    preview:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    preview: recipe.recipe.recipe_image_url,
     file: "",
   });
+  const { id } = useParams()
   let history = useHistory()
   const { title, ingredient, content, category_id } = value;
   const handleChange = (e) => {
@@ -57,36 +62,24 @@ const AddRecipe = () => {
       formData.append("category_id", category_id);
       formData.append("image", image);
       if (!title || !ingredient || !content) return;
-      await createRecipe(formData);
+      await updateRecipe(id, formData);
       setValue({
+        ...value,
         title: "",
         ingredient: "",
         content: "",
-        category_id: "1",
+        category_id: 1,
       });
       setImg({
         preview:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         file: "",
       });
-      history.push("/recipes")
+      history.push(`/recipes/${id}`)
     } catch (err) {
       console.log(err.message);
     }
   };
-
-  // const handleImageChange = (e) => {
-  //   const reader = new FileReader();
-  //   const file = e.target.files[0];
-  //   console.log("file", file)
-  //   reader.onload = () => {
-  //     if (reader.readyState === 2) {
-  //       console.log("reader.result", reader.result);
-  //       setImg(reader.result);
-  //     }
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
 
   const handleuploadPicture = (e) => {
     setImg({
@@ -102,10 +95,12 @@ const AddRecipe = () => {
     };
     fetchData();
   }, []);
+
+  console.log("category_id", category_id);
   return (
     <AddRecipeContainer>
       <AddRecipeSection>
-        <AddRecipeTitle>新增文章</AddRecipeTitle>
+        <AddRecipeTitle>編輯文章</AddRecipeTitle>
 
         <AddRecipeForm onSubmit={handleSubmit} enctype="multipart/form-data">
           <AddRecipeDivider>
@@ -160,22 +155,11 @@ const AddRecipe = () => {
                   onChange={handleuploadPicture}
                 />
                 <AiFillPicture />
-                來張成品圖吧
+                成品圖
               </ImgLabel>
             </ImgLabelContainer>
           </AddRecipeImgDivider>
-          <AddRecipeDivider>
-            {/* <AddRecipeLabel>文章內容：</AddRecipeLabel> */}
-            {/* <AddRecipeTextarea
-              className="input-textarea"
-              cols="30"
-              rows="5"
-              name="content"
-              onChange={handleChange}
-              value={content}
-              required
-            ></AddRecipeTextarea> */}
-          </AddRecipeDivider>
+          <AddRecipeDivider></AddRecipeDivider>
           <AddRecipeDivider>
             <AddRecipeLabel>文章內容：</AddRecipeLabel>
             <CKEditor
@@ -184,7 +168,6 @@ const AddRecipe = () => {
               data={content}
               required
               onReady={(editor) => {
-                // console.log("Editor is ready to use!", editor);
                 editor.editing.view.change((writer) => {
                   writer.setStyle(
                     "height",
@@ -233,4 +216,4 @@ const AddRecipe = () => {
   );
 };
 
-export default AddRecipe;
+export default EditRecipe;

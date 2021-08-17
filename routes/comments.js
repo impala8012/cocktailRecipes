@@ -6,7 +6,7 @@ router.get("/recipes/:id/comments", async (req, res, next) => {
   try {
     const { id } = req.params;
     const comments = await pool.query(
-      "SELECT * FROM comments WHERE recipe_id = $1",
+      "SELECT * FROM comments WHERE recipe_id = $1 ORDER BY created_at DESC",
       [id]
     );
     res.status(200).json(comments.rows);

@@ -8,6 +8,7 @@ import {
   RecipeListBodyDesc,
   RecipeListBodyDescTitle,
   RecipeListBodyDescContent,
+  RecipeListBodyDescContentCategory,
 } from "./RecipeList.element";
 import { getAllRecipes } from "../../WebApi";
 import { LoadingContext } from "../../contexts";
@@ -50,8 +51,19 @@ const RecipeList = () => {
                       {recipe.recipe_ingredient.replace(/<[^>]+>/g, "")}
                     </RecipeListBodyDescContent>
                   </RecipeListBodyDesc>
-                  <RecipeListBodyDesc>3</RecipeListBodyDesc>
-                  <RecipeListBodyDesc>{recipe.category}</RecipeListBodyDesc>
+                  <RecipeListBodyDesc>
+                    {recipe.comments_count ? recipe.comments_count : 0}
+                  </RecipeListBodyDesc>
+                  <RecipeListBodyDesc>
+                    <RecipeListBodyDescContentCategory
+                      to={{
+                        pathname: `/categories/${recipe.category_id}`,
+                        state: { category: `${recipe.category}` },
+                      }}
+                    >
+                      {recipe.category}
+                    </RecipeListBodyDescContentCategory>
+                  </RecipeListBodyDesc>
                 </RecipeListBodyRow>
               );
             })}

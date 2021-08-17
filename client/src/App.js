@@ -13,6 +13,8 @@ import {
   LoginPage,
   RegisterPage,
   RecipePage,
+  RecipeListByCategoryPage,
+  EditRecipePage,
 } from "./page";
 import {LoadingContext} from "./contexts"
 
@@ -30,11 +32,17 @@ function App() {
           <Route exact path="/categories">
             <CategoryListPage />
           </Route>
+          <Route path="/categories/:id">
+            <RecipeListByCategoryPage />
+          </Route>
           <Route path="/add-Recipe">
             <AddRecipePage />
           </Route>
           <Route exact path="/recipes">
             <RecipeListPage />
+          </Route>
+          <Route exact path="/recipes/:id/edit">
+            <EditRecipePage />
           </Route>
           <Route path="/recipes/:id">
             <RecipePage />

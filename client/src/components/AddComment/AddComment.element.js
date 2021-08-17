@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Container, CustomButton } from "../../globalStyle";
 
 export const AddCommentContainer = styled(Container)`
-  width: 70%;
+  width: 60%;
   margin: 30px auto;
   padding: 30px; ;
 `;
