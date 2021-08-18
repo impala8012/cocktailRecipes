@@ -22,3 +22,20 @@ export const SignUpInfo = styled(Link)`
   text-decoration: none;
   margin-left: 10px;
 `;
+
+export const ErrorMessage = styled.div`
+  color: #756e15;
+  background: #fffbd1;
+  border: 1px solid #87803e;
+  text-align: center;
+  transition: opacity 2s;
+
+  ${({ fadeOut }) =>
+    fadeOut === true &&
+    `
+     opacity: 0;
+     transition: opacity 2s;
+     height: 26px;
+
+  `};
+`;

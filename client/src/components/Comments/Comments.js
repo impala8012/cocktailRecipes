@@ -9,9 +9,7 @@ import {
   CommentRating,
 } from "./Comments.element";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
-import { Loading } from "../index";
-import { getComments } from "../../WebApi";
-
+import { Loading, Star } from "../index";
 
 const Comments = ({ setRecipeChange, comments,isLoading }) => {
   // const [comments, setComments] = useState([]);
@@ -56,7 +54,9 @@ const Comments = ({ setRecipeChange, comments,isLoading }) => {
                 <CommentBoard key={index}>
                   <CommentUser>Dylan</CommentUser>
                   <CommentContent>
-                    <CommentRating>{comment.comment_rating}</CommentRating>
+                    <CommentRating>
+                      <Star rating={comment.comment_rating} />
+                    </CommentRating>
                     <CommentDesc>{comment.comment_description}</CommentDesc>
                   </CommentContent>
                 </CommentBoard>

@@ -16,7 +16,8 @@ CREATE TABLE recipes(
   recipe_content TEXT NOT NULL,
   recipe_image_url VARCHAR(255),
   created_at timestamp without time zone default current_timestamp,
-  category_id INTEGER REFERENCES categories(category_id)
+  category_id INTEGER REFERENCES categories(category_id) ON DELETE CASCADE;
+  user_id uuid REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE;
 );
 
 CREATE TABLE comments (
@@ -26,9 +27,17 @@ CREATE TABLE comments (
     comment_rating >= 1 and comment_rating <= 5
   ),
   created_at timestamp without time zone default current_timestamp,
-  recipe_id INTEGER REFERENCES recipes(recipe_id)
+  recipe_id INTEGER REFERENCES recipes(recipe_id) ON DELETE CASCADE,
+  user_id uuid REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE;
 );
 
+CREATE TABLE users(
+  user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_name VARCHAR(255) NOT NULL,
+  user_email VARCHAR(255) UNIQUE NOT NULL,
+  user_password VARCHAR(255) NOT NULL,
+  created_at timestamp without time zone default current_timestamp
+);
 
 CREATE TABLE users(
   user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -36,8 +45,9 @@ CREATE TABLE users(
   user_email VARCHAR(255) UNIQUE NOT NULL,
   user_password VARCHAR(255) NOT NULL,
   user_image VARCHAR(255),
-  created_at timestamp without time zone default current_timestamp,
+  created_at timestamp without time zone default current_timestamp
 );
+
 
 CREATE TABLE recipe_images(
   recipe_image_id SERIAL PRIMARY KEY,
@@ -96,3 +106,7 @@ INSERT INTO categories (category, category_desc) VALUES ('Vodka','「無色、�
 INSERT INTO categories (category, category_desc) VALUES ('Whisky','口感獨特鮮明，容易與其他副材料衝突，因此以威士忌為基酒的調酒並不多，主要以純飲為主。以發酵穀物製成的蒸餾酒精飲料。 不同種類的穀物能夠製成不同種類的威士忌');
 INSERT INTO categories (category, category_desc) VALUES ('Tequila','龍舌蘭是原產自墨西哥的植物，莖部富含水分及糖分，故被用來發酵釀酒，也因為它獨特的植物香氣，適合調配成口感濃厚的調酒，或以「shot」的方式飲用');
 INSERT INTO categories (category, category_desc) VALUES ('Brandy','以水果酒為基底，加以蒸餾製成的酒，酒液帶有甜甜的水果香氣，又被稱為「葡萄酒的靈魂」，本是無色，在橡木桶貯藏過程中會逐漸浸染成褐色');
+
+
+ALTER TABLE comments DROP CONSTRAINT (recipe_id);
+ALTER TABLE comments ADD CONSTRAINT recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE;;

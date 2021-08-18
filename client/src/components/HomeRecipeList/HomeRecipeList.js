@@ -26,7 +26,6 @@ const HomeRecipeList = () => {
     setIsLoading(true);
     const fetchData = async () => {
       const response = await getTop10Recipes();
-      console.log("response for home page", response);
       setRecipes(response);
       setIsLoading(false);
     };

@@ -68,15 +68,14 @@ export const getComments = (recipe_id) => {
 };
 
 // CREATE a comment
-export const createComment = (recipe_id, description, rating, signal) => {
+export const createComment = (recipe_id, description, rating, token) => {
   return fetch(`${BASE_URL}/recipes/${recipe_id}/comments`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "application/json", token: token },
     body: JSON.stringify({
       description,
       rating,
     }),
-    signal,
   }).then((res) => res.json());
 };
 
@@ -103,3 +102,32 @@ export const unsplashFoto = () => {
   }).then((res) => res.json());
 }
 ;
+
+/* User */
+// Register
+export const register = (body) => {
+  return fetch(`${BASE_URL}/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+}
+
+// login
+export const login = (body) => {
+  return fetch(`${BASE_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body)
+  });
+}
+
+// verify
+export const Authentication = (token) => {
+  return fetch(`${BASE_URL}/auth/verify`, {
+        method: "POST",
+        headers: { token:token },
+      });
+}

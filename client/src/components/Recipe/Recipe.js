@@ -15,13 +15,15 @@ import {
 } from "./Recipe.element";
 import { useParams, useHistory } from "react-router-dom";
 import { getRecipe,deleteRecipe } from "../../WebApi";
-import { LoadingContext } from "../../contexts";
+import { LoadingContext,AuthContext } from "../../contexts";
 import { Loading } from "../index";
 
 const Recipe = ({ recipeChange, setRecipeChange}) => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
+    const { isAuth, setIsAuth } = useContext(AuthContext);
+
   // var plainString = htmlString.replace(/<[^>]+>/g, "");
   let history = useHistory();
   useEffect(() => {
@@ -72,6 +74,7 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
             <RecipeContentContainer>
               <RecipeHeader>
                 <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
+                
                 <RecipeNav>
                   <RecipeEdit
                     to={{

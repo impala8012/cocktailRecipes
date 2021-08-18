@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState, useContext } from "react";
 import { IconContext } from "react-icons/lib";
 import {
   Nav,
@@ -11,11 +11,18 @@ import {
   NavLinks,
 } from "./Navbar.element";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { AuthContext } from "../../contexts";
 
 const Navbar = () => {
-  const [click, setClick] = useState(false)
-  const handleClick = () => setClick(!click)
+  const [click, setClick] = useState(false);
+  const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const handleLogout = (e) => {
+    e.preventDefault()
+    localStorage.removeItem("token")
+    setIsAuth(false)
+  }
   return (
     <IconContext.Provider value={{ color: "#fff" }}>
       <Nav>
@@ -37,23 +44,32 @@ const Navbar = () => {
             <NavItem>
               <NavLinks href="/categories">分類列表</NavLinks>
             </NavItem>
-            <NavItem>
-              <NavLinks href="/add-recipe">發表文章</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks href="/login">登入</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks href="/register">註冊</NavLinks>
-            </NavItem>
-            <NavItem>
-              <NavLinks href="/logout">登出</NavLinks>
-            </NavItem>
+            {isAuth && (
+              <NavItem>
+                <NavLinks href="/add-recipe">發表文章</NavLinks>
+              </NavItem>
+            )}
+            {!isAuth && (
+              <>
+                <NavItem>
+                  <NavLinks href="/login">登入</NavLinks>
+                </NavItem>
+                <NavItem>
+                  <NavLinks href="/register">註冊</NavLinks>
+                </NavItem>
+              </>
+            )}
+
+            {isAuth && (
+              <NavItem>
+                <NavLinks onClick={handleLogout}>登出</NavLinks>
+              </NavItem>
+            )}
           </NavMenu>
         </NavBarContainer>
       </Nav>
     </IconContext.Provider>
   );
-}
+};
 
 export default Navbar;

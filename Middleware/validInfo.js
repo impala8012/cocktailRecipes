@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
   const {email, username, password} = req.body
   
-  function validEmail(useremail) {
+  function validEmail(userEmail) {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
   }
   if(req.path === "/register"){
@@ -18,4 +18,5 @@ module.exports = (req, res, next) => {
       return res.status(401).json("Invalid Email");
     }
   }
+  next()
 }

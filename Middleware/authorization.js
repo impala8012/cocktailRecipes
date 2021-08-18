@@ -9,6 +9,8 @@ module.exports = (req, res, next) => {
   try {
     const verify = jwt.verify(jwtToken, process.env.JWT_SECRET)
     req.user = verify.user
+    console.log("req from jwt", req)
+    console.log("req.user from jwt", req.user);
     next()
   } catch (err){
     console.log(err.message)

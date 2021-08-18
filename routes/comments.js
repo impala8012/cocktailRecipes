@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const pool = require("../db");
-
+const authorization = require("../Middleware/authorization");
 // GET comments
 router.get("/recipes/:id/comments", async (req, res, next) => {
   try {
@@ -17,7 +17,7 @@ router.get("/recipes/:id/comments", async (req, res, next) => {
 });
 
 // CREATE comment
-router.post("/recipes/:id/comments", async (req, res, next) => {
+router.post("/recipes/:id/comments", authorization, async (req, res, next) => {
   try {
     const { id } = req.params;
     const { description, rating } = req.body;
@@ -36,7 +36,7 @@ router.post("/recipes/:id/comments", async (req, res, next) => {
 });
 
 // Update comments
-router.put("/recipes/:id/comments/:comment_id", async (req, res, next) => {
+router.put("/recipes/:id/comments/:comment_id", authorization, async (req, res, next) => {
   try {
     const { comment_id } = req.params;
     const { description, rating } = req.body;
@@ -52,7 +52,7 @@ router.put("/recipes/:id/comments/:comment_id", async (req, res, next) => {
 });
 
 // DELETE comments
-router.delete("/recipes/:id/comments/:comment_id", async (req, res, next) => {
+router.delete("/recipes/:id/comments/:comment_id",authorization, async (req, res, next) => {
   try {
     const { comment_id } = req.params;
     const deletedCategory = await pool.query(

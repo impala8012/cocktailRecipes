@@ -16,3 +16,4 @@ export { default as SignIn } from "./SignIn/SignIn";
 export { default as SignUp } from "./SignUp/SignUp";
 export { default as Loading } from "./Loading/Loading";
 export { default as TextAnimation } from "./TextAnimation/TextAnimation";
+export { default as Star } from "./Star/Star";
