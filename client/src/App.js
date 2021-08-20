@@ -20,18 +20,19 @@ import { LoadingContext, AuthContext, UserContext } from "./contexts";
 import {Authentication} from "./WebApi"
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(null)
   const [user, setUser] = useState(null)
 
   useEffect(()=>{
     const fetchData = async() => {
+      const token = localStorage.token;
       try {
-        const token = localStorage.token
-        const response = await Authentication(token)
+        const response = await Authentication(token);
+        console.log("response from auth", response)
         const parseResponse = await response.json()
         // console.log("parseResponse from homw", parseResponse);
-        parseResponse === true ? setIsAuth(true) : setIsAuth(false)
-        setUser(parseResponse.user_id)
+        parseResponse.isVerified === true ? setIsAuth(true) : setIsAuth(false)
+        setUser(parseResponse.user.user_id)
       } catch(err) {
         console.log(err.message)
       }

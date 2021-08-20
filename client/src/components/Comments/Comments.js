@@ -8,23 +8,9 @@ import {
   CommentDesc,
   CommentRating,
 } from "./Comments.element";
-import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import { Loading, Star } from "../index";
 
-const Comments = ({ setRecipeChange, comments,isLoading }) => {
-  // const [comments, setComments] = useState([]);
-  let floorRating = 1.5;
-  let avgRating = 1.5;
-  let stars = [];
-  for (let i = 0; i < 5; i++) {
-    if (i < floorRating) {
-      stars.push(<BsStarFill key={i} />);
-    } else if (avgRating - i > 0 && avgRating - i < 1) {
-      stars.push(<BsStarHalf key={i} />);
-    } else {
-      stars.push(<BsStar key={i} />);
-    }
-  }
+const Comments = ({ comments,isLoading }) => {
   // useEffect(() => {
   //   setIsLoading(true);
   //   const fetchData = async () => {
@@ -36,7 +22,7 @@ const Comments = ({ setRecipeChange, comments,isLoading }) => {
   //   };
   //   fetchData();
   // }, [id, setIsLoading, setRecipeChange]);
-  console.log("comments comments", comments.length);
+  // console.log("comments comments", comments.length);
   return (
     <>
       {isLoading ? (

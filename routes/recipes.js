@@ -3,7 +3,8 @@ const pool = require("../db");
 const multer = require("multer");
 const { storage } = require("../cloudinary");
 const upload = multer({ storage });
-
+const authorization = require("../Middleware/authorization");
+const isAuthor = require("../Middleware/isAuthor")
 // GET all recipes
 router.get("/", async (req, res, next) => {
   const { per_page, page } = req.query;
@@ -54,7 +55,7 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // CREATE recipes
-router.post("/", upload.single("image"), async (req, res, next) => {
+router.post("/", upload.single("image"), authorization, async (req, res, next) => {
   try {
     // req.body.images = [];
     // for (const file of req.files) {
@@ -64,6 +65,10 @@ router.post("/", upload.single("image"), async (req, res, next) => {
     // }
     console.log("req.body", req.body);
     console.log("req.file", req.file);
+    const {id} = req.user
+    const user = await pool.query("SELECT * FROM users WHERE user_id = $1", [
+      id,
+    ]);
     const { title, ingredient, content, category_id } = req.body;
     const { path } = req.file;
     // const img1 = images[0].path;
@@ -73,8 +78,8 @@ router.post("/", upload.single("image"), async (req, res, next) => {
     }
 
     const newRecipe = await pool.query(
-      "INSERT INTO recipes (recipe_title, recipe_ingredient,recipe_content,category_id, recipe_image_url) VALUES ($1,$2,$3,$4,$5) RETURNING *;",
-      [title, ingredient, content, category_id, path]
+      "INSERT INTO recipes (recipe_title, recipe_ingredient,recipe_content,category_id, recipe_image_url, user_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;",
+      [title, ingredient, content, category_id, path, id]
     );
     console.log("newRecipe", newRecipe);
     res.status(201).json({
@@ -87,22 +92,23 @@ router.post("/", upload.single("image"), async (req, res, next) => {
 });
 
 // Update recipes
-router.put("/:id", upload.single("image"), async (req, res, next) => {
+router.put("/:id", upload.single("image"), authorization, isAuthor, async (req, res, next) => {
   try {
     const { id } = req.params;
+    const user_id = req.user.id
     const { title, ingredient, content, category_id } = req.body;
     if (req.file) {
       const { path } = req.file;
       const updatedRecipes = await pool.query(
-        "UPDATE recipes SET recipe_title = $1, recipe_ingredient = $2,recipe_content = $3, category_id = $4, recipe_image_url =$5 WHERE recipe_id = $6 RETURNING *;",
+        "UPDATE recipes SET recipe_title = $1, recipe_ingredient = $2,recipe_content = $3, category_id = $4, recipe_image_url =$5 WHERE recipe_id = $6 AND user_id = $7 RETURNING *;",
         // "WITH recipes AS (UPDATE recipes SET recipe_title = $1, recipe_ingredient = $2, recipe_content = $3, category_id = $4 WHERE recipe_id = $5 ) UPDATE recipe_images SET image_url = $6 WHERE recipe_id = $8 RETURNING *;",
-        [title, ingredient, content, category_id, path, id]
+        [title, ingredient, content, category_id, path, id, user_id]
       );
       res.status(204).send("comment was updated");
     } else {
       const updatedRecipes = await pool.query(
-        "UPDATE recipes SET recipe_title = $1, recipe_ingredient = $2,recipe_content = $3, category_id = $4 WHERE recipe_id = $5 RETURNING *;",
-        [title, ingredient, content, category_id, id]
+        "UPDATE recipes SET recipe_title = $1, recipe_ingredient = $2,recipe_content = $3, category_id = $4 WHERE recipe_id = $5 and user_id = $6 RETURNING *;",
+        [title, ingredient, content, category_id, id,user_id]
       );
       res.status(204).send("comment was updated");
     }
@@ -113,7 +119,7 @@ router.put("/:id", upload.single("image"), async (req, res, next) => {
 });
 
 // DELETE recipes
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authorization, isAuthor, async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedCategory = await pool.query(

@@ -45,5 +45,22 @@ export const CustomButton = styled.button`
 `;
 
 
+export const Message = styled.div`
+  color: #756e15;
+  background: #fffbd1;
+  border: 1px solid #87803e;
+  text-align: center;
+  transition: opacity 2s;
+
+  ${({ fadeOut }) =>
+    fadeOut === true &&
+    `
+     opacity: 0;
+     transition: opacity 2s;
+     height: 26px;
+
+  `};
+`;
+
 
 export default GlobalStyle;

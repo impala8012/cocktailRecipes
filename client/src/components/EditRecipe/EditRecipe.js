@@ -18,6 +18,7 @@ import {
   ImgLabel,
   ImgLabelContainer,
   AddRecipeImgDivider,
+  ErrorMessage,
 } from "./EditRecipe.element";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {useLocation, useParams, useHistory} from "react-router-dom"
@@ -37,6 +38,7 @@ const EditRecipe = () => {
     category_id: recipe.recipe.category_id,
   });
   const [categoryList, setCategoryList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const [img, setImg] = useState({
     preview: recipe.recipe.recipe_image_url,
     file: "",
@@ -61,7 +63,7 @@ const EditRecipe = () => {
       formData.append("content", content);
       formData.append("category_id", category_id);
       formData.append("image", image);
-      if (!title || !ingredient || !content) return;
+      if (!title || !ingredient || !content) return setErrorMessage("有欄位忘記填囉");
       await updateRecipe(id, formData);
       setValue({
         ...value,
@@ -75,6 +77,7 @@ const EditRecipe = () => {
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         file: "",
       });
+      setErrorMessage("")
       history.push(`/recipes/${id}`)
     } catch (err) {
       console.log(err.message);
@@ -90,7 +93,7 @@ const EditRecipe = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getCategories();
-      console.log("my res", response.data);
+      // console.log("my res", response.data);
       setCategoryList(response.data);
     };
     fetchData();
@@ -101,7 +104,11 @@ const EditRecipe = () => {
     <AddRecipeContainer>
       <AddRecipeSection>
         <AddRecipeTitle>編輯文章</AddRecipeTitle>
-
+        {errorMessage ? (
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+        ) : (
+          <ErrorMessage fadeOut={!errorMessage ? true : false}></ErrorMessage>
+        )}
         <AddRecipeForm onSubmit={handleSubmit} enctype="multipart/form-data">
           <AddRecipeDivider>
             <AddRecipeLabel>文章標題：</AddRecipeLabel>

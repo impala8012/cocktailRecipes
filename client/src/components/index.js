@@ -17,3 +17,5 @@ export { default as SignUp } from "./SignUp/SignUp";
 export { default as Loading } from "./Loading/Loading";
 export { default as TextAnimation } from "./TextAnimation/TextAnimation";
 export { default as Star } from "./Star/Star";
+export { default as Modal } from "./Modal/Modal";
+export { default as Pagination } from "./Pagination/Pagination";

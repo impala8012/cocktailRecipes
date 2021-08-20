@@ -15,15 +15,14 @@ import {
 } from "./Recipe.element";
 import { useParams, useHistory } from "react-router-dom";
 import { getRecipe,deleteRecipe } from "../../WebApi";
-import { LoadingContext,AuthContext } from "../../contexts";
+import { LoadingContext, UserContext } from "../../contexts";
 import { Loading } from "../index";
 
 const Recipe = ({ recipeChange, setRecipeChange}) => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-    const { isAuth, setIsAuth } = useContext(AuthContext);
-
+  const { user } = useContext(UserContext);
   // var plainString = htmlString.replace(/<[^>]+>/g, "");
   let history = useHistory();
   useEffect(() => {
@@ -74,18 +73,23 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
             <RecipeContentContainer>
               <RecipeHeader>
                 <RecipeTitle>{recipe.recipe_title}</RecipeTitle>
-                
-                <RecipeNav>
-                  <RecipeEdit
-                    to={{
-                      pathname: `/recipes/${recipe.recipe_id}/edit`,
-                      state: { recipe: { recipe } },
-                    }}
-                  >
-                    編輯
-                  </RecipeEdit>
-                  <RecipeDelete onClick={handleClick(id)}>刪除</RecipeDelete>
-                </RecipeNav>
+                {user === recipe.user_id ? (
+                  <>
+                    <RecipeNav>
+                      <RecipeEdit
+                        to={{
+                          pathname: `/recipes/${recipe.recipe_id}/edit`,
+                          state: { recipe: { recipe } },
+                        }}
+                      >
+                        編輯
+                      </RecipeEdit>
+                      <RecipeDelete onClick={handleClick(id)}>
+                        刪除
+                      </RecipeDelete>
+                    </RecipeNav>
+                  </>
+                ) : null}
               </RecipeHeader>
               <RecipeSubtitle>材料:{recipe.recipe_ingredient}</RecipeSubtitle>
               <RecipeDesc>{parse(`${recipe.recipe_content}`)}</RecipeDesc>

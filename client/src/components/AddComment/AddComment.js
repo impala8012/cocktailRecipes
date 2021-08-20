@@ -6,6 +6,7 @@ import {
   AddCommentForm,
   CommentContent,
   AddCommentButton,
+  ErrorMessage,
 } from "./AddComment.element";
 import StarRating from "../StarRating/StarRating";
 import { LoadingContext,AuthContext } from "../../contexts";
@@ -14,9 +15,10 @@ import { createComment } from "../../WebApi";
 
 const AddComment = ({ setRecipeChange }) => {
   const [comment, setComment] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [rating, setRating] = useState(0);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
 
   const { id } = useParams();
   const handleChange = (e) => setComment(e.target.value);
@@ -25,10 +27,11 @@ const AddComment = ({ setRecipeChange }) => {
     setIsLoading(true);
     const token =localStorage.token
     try {
-      if (!rating || !comment) return;
+      if (!rating || !comment) return setErrorMessage("有欄位忘記填囉");
       await createComment(id, comment, rating, token);
       setComment("");
       setRating(0);
+      setErrorMessage("")
       setIsLoading(false);
       setRecipeChange(true);
     } catch (err) {
@@ -43,6 +46,11 @@ const AddComment = ({ setRecipeChange }) => {
         <Loading />
       ) : (
         <AddCommentContainer>
+          {errorMessage ? (
+            <ErrorMessage>{errorMessage}</ErrorMessage>
+          ) : (
+            <ErrorMessage fadeOut={!errorMessage ? true : false}></ErrorMessage>
+          )}
           <AddCommentForm
             action="/recipes/:id/comments"
             method="POST"

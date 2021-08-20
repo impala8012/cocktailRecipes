@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Container, CustomButton } from "../../globalStyle";
+import { Container, CustomButton, Message } from "../../globalStyle";
 
 export const shrinkLabelStyles = css`
   top: -14px;
@@ -141,3 +141,5 @@ export const AddRecipeButton = styled(CustomButton)`
     background-color: #9c8c8c;
   }
 `;
+
+export const ErrorMessage = styled(Message)``

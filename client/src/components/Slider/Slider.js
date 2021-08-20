@@ -8,7 +8,6 @@ import {
   DotsContainer,
   Dot
 } from "./Slider.element";
-import { sliderData } from "./Data";
 import { TextAnimation } from "../index";
 import {unsplashFoto} from "../../WebApi"
 
@@ -20,7 +19,7 @@ const Slider = () => {
   useEffect(()=>{
     const fetchData = async() => {
       const response = await unsplashFoto()
-      console.log(response)
+      // console.log(response)
       setPics(response)
     }
     fetchData()

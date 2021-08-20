@@ -1,3 +1,4 @@
+import {getAuthToken} from "./utils"
 const BASE_URL="http://localhost:5000"
 
 /* Category */
@@ -12,9 +13,9 @@ export const getRecipeListByCategoryId = (category_id) => {
 
 /* Recipe */
 // get top 10 recipes
-export const getTop10Recipes = () => {
-  return fetch(`${BASE_URL}/recipes/?per_page=10`).then(res=>res.json())
-}
+export const getTop9Recipes = () => {
+  return fetch(`${BASE_URL}/recipes/?per_page=9`).then((res) => res.json());
+};
 
 // get all recipe with 10 items per page
 export const getAllRecipesPagenation = () => {
@@ -36,26 +37,31 @@ export const getRecipe = (recipe_id) => {
 };
 
 // CREATE a recipe
-export const createRecipe = (formData) => {
+export const createRecipe = (formData,token) => {
   return fetch(`${BASE_URL}/recipes`, {
     method: "POST",
+    headers:{token:token},
     body: formData,
   });
 };
 
 // Update a recipe
 export const updateRecipe = (recipe_id,formData) => {
+  const token = getAuthToken()
   return fetch(`${BASE_URL}/recipes/${recipe_id}`, {
     method: "PUT",
+    headers:{token: token},
     body: formData,
   });
 };
 
 // DELETE a recipe
 export const deleteRecipe = (recipe_id) => {
+  const token = getAuthToken();
   return fetch(`${BASE_URL}/recipes/${recipe_id}`, {
     method: "DELETE",
-  })
+    headers: { token: token },
+  });
 };
 
 /* Comments */
@@ -68,7 +74,8 @@ export const getComments = (recipe_id) => {
 };
 
 // CREATE a comment
-export const createComment = (recipe_id, description, rating, token) => {
+export const createComment = (recipe_id, description, rating) => {
+  const token = getAuthToken();
   return fetch(`${BASE_URL}/recipes/${recipe_id}/comments`, {
     method: "POST",
     headers: { "content-type": "application/json", token: token },
@@ -81,16 +88,18 @@ export const createComment = (recipe_id, description, rating, token) => {
 
 // Update a comment
 export const updatedComment = (recipe_id, description, rating, comment_id) => {
+  const token = getAuthToken();
   return fetch(`${BASE_URL}/recipes/${recipe_id}/comments${comment_id}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json",
+      token: token,
     },
     body: JSON.stringify({
       description,
       rating,
     }),
-  }).then(res => res.json())
+  }).then((res) => res.json());
 }
 
 export const unsplashFoto = () => {
@@ -126,8 +135,9 @@ export const login = (body) => {
 
 // verify
 export const Authentication = (token) => {
+  // const token = getAuthToken();
   return fetch(`${BASE_URL}/auth/verify`, {
-        method: "POST",
-        headers: { token:token },
-      });
-}
+    method: "POST",
+    headers: { token: token },
+  });
+};

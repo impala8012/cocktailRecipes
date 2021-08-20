@@ -62,7 +62,7 @@ router.post("/verify", authorization, async(req, res, next) => {
   try {
     const {id} = req.user
     const user = await pool.query("SELECT user_id FROM users where user_id = $1",[id])
-    res.status(200).json(user.rows);
+    res.status(200).json({ user: user.rows, isVerified: true});
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Container } from "../../globalStyle";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 export const RecipeContainer = styled(Container)`
   display: flex;
   justify-content: center;
@@ -39,13 +39,13 @@ export const RecipeContentContainer = styled.div`
 export const RecipeHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 300px;
 `;
 
 export const RecipeNav = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
 
 export const RecipeTitle = styled.h2`
   font-size: 2rem;

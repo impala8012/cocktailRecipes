@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import FormInput from "../FormInput/FormInput";
 import { useHistory } from "react-router-dom";
 import {
@@ -21,7 +21,7 @@ const SignUp = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
 
   const { username, email, password, confirmedPassword } = value;
   let history = useHistory();

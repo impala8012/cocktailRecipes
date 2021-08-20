@@ -12,16 +12,18 @@ import {
 } from "./Navbar.element";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../../contexts";
-
+import {useHistory} from "react-router-dom"
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const { isAuth, setIsAuth } = useContext(AuthContext);
+  let history = useHistory();
   const handleLogout = (e) => {
     e.preventDefault()
     localStorage.removeItem("token")
     setIsAuth(false)
+    history.push("/")
   }
   return (
     <IconContext.Provider value={{ color: "#fff" }}>

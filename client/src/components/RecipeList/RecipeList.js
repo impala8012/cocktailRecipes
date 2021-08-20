@@ -20,7 +20,7 @@ const RecipeList = () => {
     setIsLoading(true);
     const fetchData = async () => {
       const response = await getAllRecipes();
-      console.log(response);
+      // console.log(response);
       setRecipes(response);
       setIsLoading(false);
     };

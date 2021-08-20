@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { Container, CustomButton } from "../../globalStyle";
+import { Container, CustomButton,Message } from "../../globalStyle";
 
 export const shrinkLabelStyles = css`
   top: -14px;
@@ -141,3 +142,27 @@ export const AddRecipeButton = styled(CustomButton)`
     background-color: #9c8c8c;
   }
 `;
+
+export const ModalContent = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom:10px;
+  font-size: 1.2rem;
+`
+export const ModalButton = styled(Link)`
+  min-width: 150px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1rem;
+  font-weight: bolder;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #b8cbd1;
+`;
+
+
+export const ErrorMessage = styled(Message)``;

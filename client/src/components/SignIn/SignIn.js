@@ -21,7 +21,7 @@ const SignIn = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { setIsAuth } = useContext(AuthContext);
 
   const { email, password } = value;
   let history = useHistory();
@@ -46,11 +46,13 @@ const SignIn = () => {
         history.push("/");
       } else {
         setIsAuth(false);
+        setValue("");
         history.push("/login");
         setErrorMessage("帳號密碼輸入錯誤");
       }
     } catch (err) {
       setIsLoading(false);
+      setValue("");
       console.log(err.message);
       history.push("/login");
       setErrorMessage("帳號密碼輸入錯誤");

@@ -6,7 +6,7 @@ import {
   RecipeInfo,
   RecipeTitle,
 } from "./HomeRecipeList.element";
-import {getTop10Recipes} from "../../WebApi"
+import { getTop9Recipes } from "../../WebApi";
 import { LoadingContext } from "../../contexts";
 import { Loading } from "../index";
 import AOS from "aos";
@@ -25,7 +25,7 @@ const HomeRecipeList = () => {
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
-      const response = await getTop10Recipes();
+      const response = await getTop9Recipes();
       setRecipes(response);
       setIsLoading(false);
     };

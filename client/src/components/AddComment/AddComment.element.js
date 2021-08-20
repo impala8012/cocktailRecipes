@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, CustomButton } from "../../globalStyle";
+import { Container, CustomButton, Message } from "../../globalStyle";
 
 export const AddCommentContainer = styled(Container)`
   width: 60%;
@@ -62,3 +62,5 @@ export const CommentContent = styled.textarea`
   }
 `;
 export const AddCommentButton = styled(CustomButton)``;
+
+export const ErrorMessage = styled(Message)``;
