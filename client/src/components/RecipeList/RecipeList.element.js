@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export const RecipeListContainer = styled.div`
   width: 60%;
-  height: 100vh;
-  margin: 30px auto;
+  /* height: 100vh; */
+  margin: 30px auto 0 auto;
   display: table;
   border-collapse: collapse;
 `;

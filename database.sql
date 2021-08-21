@@ -14,7 +14,7 @@ CREATE TABLE recipes(
   recipe_title VARCHAR(50) NOT NULL,
   recipe_ingredient  VARCHAR(255) NOT NULL,
   recipe_content TEXT NOT NULL,
-  recipe_image_url VARCHAR(255),
+  recipe_image_url VARCHAR(255) DEFAULT 'https://res.cloudinary.com/dehd751pl/image/upload/v1629553823/recipe/gin_mule_kox1yh.jpg',
   created_at timestamp without time zone default current_timestamp,
   category_id INTEGER REFERENCES categories(category_id) ON DELETE CASCADE;
   user_id uuid REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE;

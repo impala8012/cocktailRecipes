@@ -18,9 +18,9 @@ export const getTop9Recipes = () => {
 };
 
 // get all recipe with 10 items per page
-export const getAllRecipesPagenation = () => {
-  const per_page = 10;
-  const page = 1
+export const getAllRecipesPagenation = (per_page,page) => {
+  // const per_page = 10;
+  // const page = 1
   return fetch(`${BASE_URL}/recipes/?per_page=${per_page}&page=${page}`).then(res => res.json());
 }
 
