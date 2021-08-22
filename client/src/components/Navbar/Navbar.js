@@ -46,6 +46,9 @@ const Navbar = () => {
             <NavItem>
               <NavLinks href="/categories">分類列表</NavLinks>
             </NavItem>
+            <NavItem>
+              <NavLinks href="/recipes/user-recipes">我的文章</NavLinks>
+            </NavItem>
             {isAuth && (
               <NavItem>
                 <NavLinks href="/add-recipe">發表文章</NavLinks>

@@ -15,6 +15,7 @@ import {
   RecipePage,
   RecipeListByCategoryPage,
   EditRecipePage,
+  UserRecipesPage,
 } from "./page";
 import { LoadingContext, AuthContext, UserContext } from "./contexts";
 import {Authentication} from "./WebApi"
@@ -65,6 +66,9 @@ function App() {
               </Route>
               <Route exact path="/recipes/:id/edit">
                 <EditRecipePage />
+              </Route>
+              <Route exact path="/recipes/user-recipes">
+                <UserRecipesPage />
               </Route>
               <Route path="/recipes/:id">
                 <RecipePage />

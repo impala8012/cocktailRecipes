@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const RecipeListContainer = styled.div`
   width: 60%;
   /* height: 100vh; */
-  margin: 30px auto 0 auto;
+  margin: 30px auto 100px auto;
   display: table;
   border-collapse: collapse;
   @media screen and (min-width: 968px) {

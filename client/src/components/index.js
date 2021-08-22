@@ -19,3 +19,4 @@ export { default as TextAnimation } from "./TextAnimation/TextAnimation";
 export { default as Star } from "./Star/Star";
 export { default as Modal } from "./Modal/Modal";
 export { default as Pagination } from "./Pagination/Pagination";
+export { default as UserRecipes } from "./UserRecipes/UserRecipes";

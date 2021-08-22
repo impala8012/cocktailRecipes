@@ -36,6 +36,15 @@ export const getRecipe = (recipe_id) => {
   );
 };
 
+// GET recipes from a user
+export const getUserRecipes = () => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/recipes/user-recipes`, {
+    method: "GET",
+    headers: { token: token },
+  }).then((res) => res.json());
+}
+
 // CREATE a recipe
 export const createRecipe = (formData,token) => {
   return fetch(`${BASE_URL}/recipes`, {

@@ -36,6 +36,20 @@ router.get("/", async (req, res, next) => {
     res.status(500).send("Server Error");
   }
 });
+// GET user recipes
+router.get("/user-recipes", authorization, async (req, res, next) => {
+  try {
+    const {id} = req.user
+    const userRecipes = await pool.query(
+      "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id as comments_recipe_id, COUNT(*) as comments_count FROM comments GROUP BY comments_recipe_id) comments ON recipes.recipe_id = comments_recipe_id LEFT JOIN (SELECT category_id, category from categories) categories ON recipes.category_id = categories.category_id WHERE user_id = $1 ORDER BY created_at DESC",
+      [id]
+    );
+    res.status(200).json(userRecipes.rows);
+  } catch(err){
+    console.log(err.message)
+    res.status(500).send("Server Error");
+  }
+});
 
 // GET a recipes
 router.get("/:id", async (req, res, next) => {
@@ -50,18 +64,6 @@ router.get("/:id", async (req, res, next) => {
     res.status(200).json(recipe.rows[0]);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// GET user recipes
-router.get("/user", authorization, async (req, res, next) => {
-  try {
-    const {id} = req.user
-    const userRecipes = await pool.query("SELECT * FROM recipes WHERE user_id = $1",[id])
-    res.status(200).json(userRecipes.rows);
-  } catch(err){
-    console.log(err.message)
     res.status(500).send("Server Error");
   }
 });
