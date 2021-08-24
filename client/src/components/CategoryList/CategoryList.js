@@ -23,7 +23,7 @@ const CategoryList = () => {
     setIsLoading(true);
     const fetchData = async () => {
       const response = await getCategories();
-      console.log("my res", response);
+      // console.log("my res", response);
       setCategories(response.data);
       setIsLoading(false);
     };

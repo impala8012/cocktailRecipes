@@ -10,6 +10,7 @@ export const RecipeContainer = styled(Container)`
   @media screen and (max-width: 820px) {
     flex-direction: column;
     width: 100%;
+    align-items:center;
   }
 `;
 
@@ -34,12 +35,14 @@ export const RecipeImg = styled.img`
 export const RecipeContentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 820px) {
+    width: 90%;
+  }
 `;
 
 export const RecipeHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 300px;
 `;
 
 export const RecipeNav = styled.div`
@@ -48,7 +51,7 @@ export const RecipeNav = styled.div`
 `;
 
 export const RecipeTitle = styled.h2`
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: bold;
 `;
 

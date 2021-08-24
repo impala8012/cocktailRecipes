@@ -26,15 +26,19 @@ function App() {
 
   useEffect(()=>{
     const fetchData = async() => {
-      const token = localStorage.token;
       try {
-        const response = await Authentication(token);
+        const response = await Authentication();
         console.log("response from auth", response)
         const parseResponse = await response.json()
         // console.log("parseResponse from homw", parseResponse);
+        // console.log(
+        //   "parseResponse from homw.user.user_id",
+        //   parseResponse.user[0].user_id
+        // );
         parseResponse.isVerified === true ? setIsAuth(true) : setIsAuth(false)
-        setUser(parseResponse.user.user_id)
+        setUser(parseResponse.user[0].user_id);
       } catch(err) {
+        console.log("這裡出錯囉")
         console.log(err.message)
       }
     }

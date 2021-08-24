@@ -11,8 +11,16 @@ export const getRecipeListByCategoryId = (category_id) => {
   return fetch(`${BASE_URL}/categories/${category_id}`).then(res => res.json())
 }
 
+// get recipe list by category id with pagination
+export const getRecipeListByCategoryIdWithPagination = (category_id, per_page, page) => {
+  return fetch(`${BASE_URL}/categories/${category_id}/?per_page=${per_page}&page=${page}`).then(
+    (res) => res.json()
+  );
+}
+
+
 /* Recipe */
-// get top 10 recipes
+// get top 9 recipes
 export const getTop9Recipes = () => {
   return fetch(`${BASE_URL}/recipes/?per_page=9`).then((res) => res.json());
 };
@@ -143,8 +151,8 @@ export const login = (body) => {
 }
 
 // verify
-export const Authentication = (token) => {
-  // const token = getAuthToken();
+export const Authentication = () => {
+  const token = getAuthToken();
   return fetch(`${BASE_URL}/auth/verify`, {
     method: "POST",
     headers: { token: token },

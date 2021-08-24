@@ -1,5 +1,6 @@
 import React, { useState, useEffect,useContext } from "react";
 import {
+  RecipeListWrapper,
   RecipeListContainer,
   RecipeListHeadRow,
   RecipeListHeadInfo,
@@ -26,7 +27,7 @@ const RecipeList = () => {
       const totalLength = await getAllRecipes(per_page, page);
       setTotalLength(totalLength.length);
       const response = await getAllRecipesPagenation(per_page, page);
-      console.log(response);
+      // console.log(response);
       setRecipes(response);
       setIsLoading(false);
     };
@@ -37,7 +38,7 @@ const RecipeList = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <RecipeListWrapper>
           <RecipeListContainer>
             <RecipeListHeadRow>
               <RecipeListHeadInfo>主題</RecipeListHeadInfo>
@@ -81,7 +82,7 @@ const RecipeList = () => {
             totalRecipes={totalLength}
             per_page={per_page}
           />
-        </>
+        </RecipeListWrapper>
       )}
     </>
   );

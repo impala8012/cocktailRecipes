@@ -23,6 +23,7 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
   const [recipe, setRecipe] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { user } = useContext(UserContext);
+  console.log("user", user)
   // var plainString = htmlString.replace(/<[^>]+>/g, "");
   let history = useHistory();
   useEffect(() => {

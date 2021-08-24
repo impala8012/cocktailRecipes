@@ -22,8 +22,8 @@ export const RecipeImg = styled.img`
 
 export const RecipeInfo = styled.div`
   position: absolute;
-  top: 34%;
-  left: 10%;
+  top: 40%;
+  left: 15%;
   width: 70%;
   height: 55%;
   padding: 5px;

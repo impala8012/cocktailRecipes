@@ -73,10 +73,16 @@ export const CategoryListBodyDesc = styled.div`
   }
 `;
 export const CategoryListBodyDescTitle = styled(Link)`
-width: 10%;
+  width: 10%;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
+  color: black;
+
+  &:visited {
+    text-decoration: none;
+    color: black;
+  }
 `;
 export const CategoryListBodyDescContent = styled.div`
   font-size: 16px;

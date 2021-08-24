@@ -11,13 +11,14 @@ import {
   NavLinks,
 } from "./Navbar.element";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { AuthContext } from "../../contexts";
+import { AuthContext, UserContext } from "../../contexts";
 import {useHistory} from "react-router-dom"
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
   const { isAuth, setIsAuth } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   let history = useHistory();
   const handleLogout = (e) => {
     e.preventDefault()
@@ -46,9 +47,11 @@ const Navbar = () => {
             <NavItem>
               <NavLinks href="/categories">分類列表</NavLinks>
             </NavItem>
-            <NavItem>
-              <NavLinks href="/recipes/user-recipes">我的文章</NavLinks>
-            </NavItem>
+            {user && (
+              <NavItem>
+                <NavLinks href="/recipes/user-recipes">我的文章</NavLinks>
+              </NavItem>
+            )}
             {isAuth && (
               <NavItem>
                 <NavLinks href="/add-recipe">發表文章</NavLinks>

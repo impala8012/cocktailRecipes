@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const RecipeListWrapper = styled.div`
+  height: 80%;
+`
+
 export const RecipeListContainer = styled.div`
   width: 60%;
-  /* height: 100vh; */
+  /* height: 300px; */
   margin: 30px auto 0 auto;
   display: table;
   border-collapse: collapse;
-  @media screen and (min-width: 968px) {
+  /* @media screen and (min-width: 968px) {
     height: 50vh;
-  }
+  } */
 `;
 
 export const RecipeListHead = styled.div`
@@ -54,7 +58,7 @@ export const RecipeListBodyRow = styled.div`
 
 export const RecipeListBodyDesc = styled.div`
   display: table-cell;
-  vertical-align: inherit;
+  vertical-align: middle;
   padding: 10px;
   &:first-child {
     width: 500px;

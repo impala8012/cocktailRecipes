@@ -125,7 +125,7 @@ const AddRecipe = () => {
         <Loading />
       ) : (
         <AddRecipeSection>
-          <AddRecipeTitle>新增文章</AddRecipeTitle>
+          <AddRecipeTitle>新增酒譜</AddRecipeTitle>
           {errorMessage ? (
             <ErrorMessage>{errorMessage}</ErrorMessage>
           ) : (

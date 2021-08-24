@@ -103,7 +103,7 @@ const EditRecipe = () => {
   return (
     <AddRecipeContainer>
       <AddRecipeSection>
-        <AddRecipeTitle>編輯文章</AddRecipeTitle>
+        <AddRecipeTitle>編輯酒譜</AddRecipeTitle>
         {errorMessage ? (
           <ErrorMessage>{errorMessage}</ErrorMessage>
         ) : (

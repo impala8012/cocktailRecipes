@@ -75,13 +75,13 @@ export const RecipeItemReadmore = styled(Link)`
 export const Categoryitem = styled.div`
   /* display: flex; */
   margin-bottom: 70px;
-  border-bottom: 1px solid #bdbbbb;
+  border-bottom: 2px solid #efefef;
   text-decoration: none;
   letter-spacing: 0.5px;
   padding: 5px 20px 5px 20px;
   margin-top: 10px;
   font-size: 1rem;
-  display: flex;
+  display:flex;
   justify-content: center;
 `;
 

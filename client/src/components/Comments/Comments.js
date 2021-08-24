@@ -11,18 +11,6 @@ import {
 import { Loading, Star } from "../index";
 
 const Comments = ({ comments,isLoading }) => {
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   const fetchData = async () => {
-  //     const comment = await getComments(id);
-  //     console.log("response from comment", comment);
-  //     setComments(comment);
-  //     setIsLoading(false);
-  //     setRecipeChange(false);
-  //   };
-  //   fetchData();
-  // }, [id, setIsLoading, setRecipeChange]);
-  // console.log("comments comments", comments.length);
   return (
     <>
       {isLoading ? (
@@ -38,7 +26,7 @@ const Comments = ({ comments,isLoading }) => {
           {comments.map((comment, index) => {
               return (
                 <CommentBoard key={index}>
-                  <CommentUser>Dylan</CommentUser>
+                  <CommentUser>{comment.user_name}</CommentUser>
                   <CommentContent>
                     <CommentRating>
                       <Star rating={comment.comment_rating} />

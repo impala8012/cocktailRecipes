@@ -90,3 +90,26 @@ export const RecipeListBodyDescContentCategory = styled(
   font-weight: bold;
   font-size: 1rem;
 `;
+
+export const Wrapper = styled.div`
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const NoRecipesInfo = styled.div`
+  font-size: 1.4rem;
+  margin: 10px;
+  margin-top: 40px;
+`
+
+export const AddRecipeLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+
+  &:visited {
+    color: black;
+  }
+`;

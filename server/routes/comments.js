@@ -6,7 +6,7 @@ router.get("/recipes/:id/comments", async (req, res, next) => {
   try {
     const { id } = req.params;
     const comments = await pool.query(
-      "SELECT * FROM comments WHERE recipe_id = $1 ORDER BY created_at DESC",
+      "SELECT * FROM comments LEFT JOIN (SELECT user_id, user_name FROM users) users on comments.user_id = users.user_id WHERE recipe_id = $1 ORDER BY created_at DESC",
       [id]
     );
     res.status(200).json(comments.rows);
@@ -20,13 +20,14 @@ router.get("/recipes/:id/comments", async (req, res, next) => {
 router.post("/recipes/:id/comments", authorization, async (req, res, next) => {
   try {
     const { id } = req.params;
+    const userId = req.user.id
     const { description, rating } = req.body;
     if (!description || !rating) {
       return res.json("有欄位忘記填囉");
     }
     const newComment = await pool.query(
-      "INSERT INTO comments (comment_description, comment_rating, recipe_id) VALUES ($1, $2, $3) RETURNING *",
-      [description, rating, id]
+      "INSERT INTO comments (comment_description, comment_rating, recipe_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
+      [description, rating, id, userId]
     );
     res.status(201).json(newComment.rows[0]);
   } catch (err) {

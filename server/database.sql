@@ -39,16 +39,6 @@ CREATE TABLE users(
   created_at timestamp without time zone default current_timestamp
 );
 
-CREATE TABLE users(
-  user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_name VARCHAR(255) NOT NULL,
-  user_email VARCHAR(255) UNIQUE NOT NULL,
-  user_password VARCHAR(255) NOT NULL,
-  user_image VARCHAR(255),
-  created_at timestamp without time zone default current_timestamp
-);
-
-
 CREATE TABLE recipe_images(
   recipe_image_id SERIAL PRIMARY KEY,
   image_url  VARCHAR(255),

@@ -5,6 +5,7 @@ export { default as HomeRecipeList } from "./HomeRecipeList/HomeRecipeList";
 export { default as RecipeList } from "./RecipeList/RecipeList";
 export { default as Recipe } from "./Recipe/Recipe";
 export { default as RecipeListByCategory } from "./RecipeListByCategory/RecipeListByCategory";
+export { default as RecipeListByCategoryInfinieScroll } from "./RecipeListByCategoryInfinieScroll/RecipeListByCategoryInfinieScroll";
 export { default as AddRecipe } from "./AddRecipe/AddRecipe";
 export { default as EditRecipe } from "./EditRecipe/EditRecipe";
 export { default as AddComment } from "./AddComment/AddComment";

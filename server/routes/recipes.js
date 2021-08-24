@@ -15,20 +15,20 @@ router.get("/", async (req, res, next) => {
         "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id as comments_recipe_id, COUNT(*) as comments_count FROM comments GROUP BY comments_recipe_id) comments ON recipes.recipe_id = comments_recipe_id LEFT JOIN (SELECT category_id as categories_category_id, category from categories) categories ON recipes.category_id = categories_category_id ORDER BY created_at DESC LIMIT $1 OFFSET $2 ",
         [per_page, offset]
       );
-      console.log(recipes);
+      // console.log(recipes);
       res.status(200).json(recipes.rows);
     } else if (per_page && !page) {
       const recipes = await pool.query(
         "SELECT * FROM recipes LEFT JOIN (SELECT recipe_id as comments_recipe_id, COUNT(*) as comments_count FROM comments GROUP BY comments_recipe_id) comments ON recipes.recipe_id = comments_recipe_id LEFT JOIN (SELECT category_id as categories_category_id, category from categories) categories ON recipes.category_id = categories_category_id ORDER BY created_at DESC LIMIT $1 ",
         [per_page]
       );
-      console.log(recipes);
+      // console.log(recipes);
       res.status(200).json(recipes.rows);
     } else {
       const recipes = await pool.query(
         "SELECT * from recipes LEFT JOIN (SELECT recipe_id as comments_recipe_id, COUNT(*) as comments_count FROM comments GROUP BY comments_recipe_id) comments ON recipes.recipe_id = comments_recipe_id LEFT JOIN (SELECT category_id, category from categories) categories ON recipes.category_id = categories.category_id ORDER BY created_at DESC"
       );
-      console.log(recipes);
+      // console.log(recipes);
       res.status(200).json(recipes.rows);
     }
   } catch (err) {
@@ -38,6 +38,8 @@ router.get("/", async (req, res, next) => {
 });
 // GET user recipes
 router.get("/user-recipes", authorization, async (req, res, next) => {
+    const { per_page, page } = req.query;
+
   try {
     const {id} = req.user
     const userRecipes = await pool.query(
@@ -60,7 +62,7 @@ router.get("/:id", async (req, res, next) => {
       "SELECT * FROM recipes WHERE recipes.recipe_id = $1",
       [id]
     );
-    console.log(recipe);
+    // console.log(recipe);
     res.status(200).json(recipe.rows[0]);
   } catch (err) {
     console.log(err.message);
@@ -81,8 +83,8 @@ router.post(
       //     path: file.path,
       //   });
       // }
-      console.log("req.body", req.body);
-      console.log("req.file", req.file);
+      // console.log("req.body", req.body);
+      // console.log("req.file", req.file);
       const { id } = req.user;
       const { title, ingredient, content, category_id } = req.body;
       if (!title || !ingredient || !content || !category_id) {
@@ -97,7 +99,7 @@ router.post(
           "INSERT INTO recipes (recipe_title, recipe_ingredient,recipe_content,category_id, recipe_image_url, user_id) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;",
           [title, ingredient, content, category_id, path, id]
         );
-        console.log("newRecipe", newRecipe);
+        // console.log("newRecipe", newRecipe);
         res.status(201).json({
           status: "success",
         });
@@ -106,7 +108,7 @@ router.post(
           "INSERT INTO recipes (recipe_title, recipe_ingredient,recipe_content,category_id, user_id) VALUES ($1,$2,$3,$4,$5) RETURNING *;",
           [title, ingredient, content, category_id, id]
         );
-        console.log("newRecipe", newRecipe);
+        // console.log("newRecipe", newRecipe);
         res.status(201).json({
           status: "success",
         });
