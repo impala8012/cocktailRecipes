@@ -1,5 +1,8 @@
 import {getAuthToken} from "./utils"
-const BASE_URL="http://localhost:5000"
+// const BASE_URL="http://localhost:5000"
+
+const BASE_URL =
+  process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 
 /* Category */
 // get all the categories

@@ -49,7 +49,6 @@ const SignUp = () => {
       const response = await register(body);
       const parseResponse = await response.json();
       setIsLoading(false);
-      console.log("parseres", parseResponse);
       if (parseResponse.token) {
         // save to the localStorage
         localStorage.setItem("token", parseResponse.token);

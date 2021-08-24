@@ -25,7 +25,7 @@ const UserRecipes = () => {
     const fetchData = async () => {
       try {
         const response = await getUserRecipes();
-        console.log("response from user recipes", response);
+        // console.log("response from user recipes", response);
         setRecipes(response);
         setIsLoading(false);
       } catch (err) {

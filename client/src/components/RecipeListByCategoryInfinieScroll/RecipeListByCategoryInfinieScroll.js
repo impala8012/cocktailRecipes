@@ -46,7 +46,7 @@ const RecipeListByCategoryInfinieScroll = () => {
         per_page,
         page
       );
-      console.log("newRecipe", newRecipe);
+      // console.log("newRecipe", newRecipe);
       setRecipes((prev) => [...prev, ...newRecipe.categoryRecipesList]);
       setIsLoading(false);
       setHasMore(true);

@@ -1,5 +1,5 @@
 import React from 'react'
-import {RecipeListByCategory} from "../../components"
+// import {RecipeListByCategory} from "../../components"
 import { RecipeListByCategoryInfinieScroll } from "../../components";
 
 const RecipeListByCategoryPage = () => {

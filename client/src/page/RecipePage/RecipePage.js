@@ -13,7 +13,7 @@ const RecipePage = () => {
     setIsLoading(true);
     const fetchData = async () => {
       const comment = await getComments(id);
-      console.log("response from comment", comment);
+      // console.log("response from comment", comment);
       setComments(comment);
       setIsLoading(false);
     };

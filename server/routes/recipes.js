@@ -3,8 +3,8 @@ const pool = require("../db");
 const multer = require("multer");
 const { storage } = require("../cloudinary");
 const upload = multer({ storage });
-const authorization = require("../Middleware/authorization");
-const isAuthor = require("../Middleware/isAuthor");
+const authorization = require("../middleware/authorization");
+const isAuthor = require("../middleware/isAuthor");
 // GET all recipes
 router.get("/", async (req, res, next) => {
   const { per_page, page } = req.query;

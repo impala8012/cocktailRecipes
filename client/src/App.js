@@ -28,13 +28,9 @@ function App() {
     const fetchData = async() => {
       try {
         const response = await Authentication();
-        console.log("response from auth", response)
+        // console.log("response from auth", response)
         const parseResponse = await response.json()
         // console.log("parseResponse from homw", parseResponse);
-        // console.log(
-        //   "parseResponse from homw.user.user_id",
-        //   parseResponse.user[0].user_id
-        // );
         parseResponse.isVerified === true ? setIsAuth(true) : setIsAuth(false)
         setUser(parseResponse.user[0].user_id);
       } catch(err) {
@@ -44,7 +40,7 @@ function App() {
     }
     fetchData()
   },[])
-  console.log("is auth", isAuth)
+  // console.log("is auth", isAuth)
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>
       <UserContext.Provider value={{ user, setUser }}>

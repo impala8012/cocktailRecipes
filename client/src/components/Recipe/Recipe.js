@@ -23,7 +23,6 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
   const [recipe, setRecipe] = useState([]);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { user } = useContext(UserContext);
-  console.log("user", user)
   // var plainString = htmlString.replace(/<[^>]+>/g, "");
   let history = useHistory();
   useEffect(() => {
@@ -41,16 +40,6 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
     fetchData();
   }, [id, setIsLoading, recipeChange, setRecipeChange]);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   const fetchData = async () => {
-  //     const comment = await getComments(id);
-  //     console.log("response from comment", comment);
-  //     setComments(comment);
-  //     setIsLoading(false);
-  //   };
-  //   fetchData();
-  // }, [id, setIsLoading]);
   const handleClick = () => async() => {
     try {
       await deleteRecipe(id)
@@ -60,7 +49,6 @@ const Recipe = ({ recipeChange, setRecipeChange}) => {
     }
   }
 
-  console.log("recipe from recipe", recipe.recipe_id)
   return (
     <>
       {isLoading ? (
