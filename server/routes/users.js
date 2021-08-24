@@ -5,8 +5,8 @@ const { storage } = require("../cloudinary");
 const upload = multer({ storage });
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
-const validInfo = require("../middleware/validInfo");
-const authorization = require("../middleware/authorization");
+const validInfo = require("../Middleware/validInfo");
+const authorization = require("../Middleware/authorization");
 
 // POST Login
 router.post("/login", validInfo, async(req, res, next) =>  {

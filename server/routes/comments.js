@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const pool = require("../db");
-const authorization = require("../middleware/authorization");
+const authorization = require("../Middleware/authorization");
 // GET comments
 router.get("/recipes/:id/comments", async (req, res, next) => {
   try {
