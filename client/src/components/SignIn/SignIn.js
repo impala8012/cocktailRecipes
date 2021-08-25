@@ -11,7 +11,7 @@ import {
   SignUpInfo,
   ErrorMessage,
 } from "./SignIn.element";
-import { LoadingContext, AuthContext } from "../../contexts";
+import { LoadingContext, AuthContext, UserContext } from "../../contexts";
 import { Loading } from "../index";
 
 const SignIn = () => {
@@ -22,6 +22,7 @@ const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { setIsAuth } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
 
   const { email, password } = value;
   let history = useHistory();
@@ -38,21 +39,24 @@ const SignIn = () => {
       const body = { email, password };
       const response = await login(body);
       const parseResponse = await response.json();
+      console.log("parseResponse", parseResponse);
       setIsLoading(false);
       if (parseResponse.token) {
         localStorage.setItem("token", parseResponse.token);
         setIsAuth(true);
-        setValue("");
+        setUser(true)
+        setValue({email:"", password:""});
         history.push("/");
       } else {
         setIsAuth(false);
-        setValue("");
+        setUser(false)
+        setValue({email:"", password:""});
         history.push("/login");
         setErrorMessage("帳號密碼輸入錯誤");
       }
     } catch (err) {
       setIsLoading(false);
-      setValue("");
+      setValue({email:"", password:""});
       console.log(err.message);
       history.push("/login");
       setErrorMessage("帳號密碼輸入錯誤");
@@ -86,6 +90,7 @@ const SignIn = () => {
               name="password"
               value={password}
               onChange={handleChange}
+              autoComplete="off"
               label="password"
               required
             />

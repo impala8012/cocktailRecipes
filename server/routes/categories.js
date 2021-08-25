@@ -19,12 +19,12 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   const { per_page, page } = req.query;
   const { id } = req.params;
-
   try {
     if (page && per_page) {
       const offset = per_page * (page - 1);
       const categoryRecipes = await pool.query(
-        "SELECT * FROM categories LEFT JOIN recipes ON categories.category_id = recipes.category_id WHERE categories.category_id = $1 ORDER BY categories.created_at DESC LIMIT $1 OFFSET $2 " ,[per_page, offset]
+        "SELECT * FROM categories LEFT JOIN recipes ON categories.category_id = recipes.category_id WHERE categories.category_id = $1 ORDER BY categories.created_at DESC LIMIT $2 OFFSET $3 ",
+        [id,per_page, offset]
       );
       // console.log(recipes);
       res.status(200).json({

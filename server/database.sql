@@ -1,4 +1,4 @@
-CREATE DATABASE cocktailRecipes;
+CREATE DATABASE cocktailrecipes;
 
 CREATE EXTENSION "uuid-ossp";
 

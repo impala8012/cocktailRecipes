@@ -24,10 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/categories", categoryRouter);
-app.use("/", commentRouter);
-app.use("/recipes", recipeRouter);
-app.use("/auth", userRouter);
+app.use("/api/recipes", recipeRouter);
+app.use("/api", commentRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/auth", userRouter);
 
 
 app.listen(port, () => {

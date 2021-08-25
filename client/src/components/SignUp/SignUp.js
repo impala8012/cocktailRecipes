@@ -8,7 +8,7 @@ import {
   SignUpBotton,
   ErrorMessage,
 } from "./SignUp.element";
-import { LoadingContext, AuthContext } from "../../contexts";
+import { LoadingContext, AuthContext, UserContext } from "../../contexts";
 import { Loading } from "../index";
 import { register } from "../../WebApi";
 
@@ -22,6 +22,8 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { setIsAuth } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
+
 
   const { username, email, password, confirmedPassword } = value;
   let history = useHistory();
@@ -53,9 +55,11 @@ const SignUp = () => {
         // save to the localStorage
         localStorage.setItem("token", parseResponse.token);
         setIsAuth(true);
+        setUser(true)
         history.push("/");
       } else {
         setIsAuth(false);
+        setUser(false)
         history.push("/register");
         setErrorMessage("輸入錯誤");
       }
@@ -102,6 +106,7 @@ const SignUp = () => {
               value={password}
               onChange={handleChange}
               label="password"
+              autoComplete="off"
               required
             />
             <FormInput
@@ -110,6 +115,7 @@ const SignUp = () => {
               value={confirmedPassword}
               onChange={handleChange}
               label="confirm password"
+              autoComplete="off"
               required
             />
             <SignUpBotton>送出</SignUpBotton>

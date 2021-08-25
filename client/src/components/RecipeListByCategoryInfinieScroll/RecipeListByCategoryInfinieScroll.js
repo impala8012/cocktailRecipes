@@ -39,7 +39,6 @@ const RecipeListByCategoryInfinieScroll = () => {
     const loadRecipes = async () => {
       setIsLoading(true);
       const data = await getRecipeListByCategoryId(id);
-      // console.log("data", data.categoryRecipesList);
       setTotalLength(data.categoryRecipesList.length);
       const newRecipe = await getRecipeListByCategoryIdWithPagination(
         id,

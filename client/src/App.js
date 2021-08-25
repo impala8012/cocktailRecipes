@@ -31,8 +31,8 @@ function App() {
         // console.log("response from auth", response)
         const parseResponse = await response.json()
         // console.log("parseResponse from homw", parseResponse);
-        parseResponse.isVerified === true ? setIsAuth(true) : setIsAuth(false)
         setUser(parseResponse.user[0].user_id);
+        parseResponse.isVerified === true ? setIsAuth(true) : setIsAuth(false)
       } catch(err) {
         console.log("這裡出錯囉")
         console.log(err.message)
@@ -40,10 +40,11 @@ function App() {
     }
     fetchData()
   },[])
-  // console.log("is auth", isAuth)
+  console.log("is auth", isAuth)
+  console.log("user from app", user)
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-      <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser }}>
+      <AuthContext.Provider value={{ isAuth, setIsAuth }}>
         <Router>
           <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
             <GlobalStyle />
@@ -83,8 +84,8 @@ function App() {
             <Footer />
           </LoadingContext.Provider>
         </Router>
-      </UserContext.Provider>
-    </AuthContext.Provider>
+      </AuthContext.Provider>
+    </UserContext.Provider>
   );
 }
 
