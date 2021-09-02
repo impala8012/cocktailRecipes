@@ -33,21 +33,31 @@
 ### 前端技術
 -----
 React ： 利用 Hooks 形式的 function component 來完成版面
+
 React-router-dom ： 處理前端的路由
+
 styled-components ： RWD 版面的樣式處理，利用 gloabal style 以及 component 形式讓 CSS 語法看起來具有簡潔和共用性。
 
 ### 後端技術
 -----
 Node/Express ： 串接 API 以及 CRUD 的操作，實作出處理會員認證註冊與登入程序，還有分頁功能
+
 jsonwebtoken ： 利用 JWT token 的形式發送到前端，簽署 token 實作使用者身分驗證，確保資料不會被任意串改。
+
 multer ： 存取來自前端的圖片資料並協助照片上傳
+
 cloundinary ： 利用 multer 把照片上傳到雲端伺服器，Client 端可以直接從雲端讀取以避免佔用太多空間在本地端
+
 AWS / Ubuntu ： 網站部署，ubuntu 主機利用 nginx 伺服器架設前後端。
+
 bcrypt ： 將使用者密碼雜湊之後存進資料庫。
+
 Postgres ： 利用 SQL 語法，與 server 端串接出資料庫間 CRUD 的操作
+
 
 資料庫設計
 [連結](https://dbdiagram.io/d/61261be16dc2bb6073bab605) 
+
 ![](https://i.imgur.com/RHMdDSR.png)
 
 ## 圖片來院
